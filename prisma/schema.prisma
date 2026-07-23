@@ -12,17 +12,58 @@ enum UserRole {
 }
 
 model User {
-  id        String     @id @default(cuid())
-  email     String     @unique
-  username  String     @unique
-  password  String?
-  image     String?
-  role      UserRole   @default(USER)
-  xp        Int        @default(0)
-  level     Int        @default(1)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  progress  Progress[]
+  id           String     @id @default(cuid())
+  email        String     @unique
+  emailVerified Boolean   @default(false)
+  username     String     @unique
+  name         String?
+  image        String?
+  role         UserRole   @default(USER)
+  xp           Int        @default(0)
+  level        Int        @default(1)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  session  Session[]
+  account  Account[]
+  progress Progress[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id           String  @id @default(cuid())
+  accountId    String  @default("")
+  providerId   String
+  userId       String
+  accessToken  String?
+  refreshToken String?
+  idToken      String?
+  password     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Category {

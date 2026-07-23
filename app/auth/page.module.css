@@ -233,6 +233,19 @@
   box-shadow: var(--shadow);
 }
 
+/* ===== ERROR ===== */
+.error {
+  background: var(--red-light);
+  color: var(--red);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  border: 2px solid var(--red);
+  margin-bottom: 4px;
+}
+
 /* ===== SWITCH ===== */
 .switchText {
   text-align: center;

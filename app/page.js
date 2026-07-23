@@ -38,7 +38,7 @@ function HeroSection() {
           </h1>
           <p className={styles.heroSub}>
             CodeQuest turns coding into an adventure! Solve fun quizzes,
-            earn XP, unlock levels, and become a coding hero. <RocketIcon />
+            earn XP, unlock levels, and become a coding hero.
           </p>
           <div className={styles.heroActions}>
             <Button href="/auth" variant="green">
