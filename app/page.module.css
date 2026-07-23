@@ -1,6 +1,7 @@
 /* ========== HERO ========== */
 .hero {
   position: relative;
+  z-index: 1;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -10,22 +11,11 @@
 }
 
 .bgCircle {
-  position: absolute;
+  position: fixed;
   border-radius: 50%;
   background: var(--green-light);
   pointer-events: none;
-  z-index: 0;
-}
-
-.heroBgShape {
-  position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 700px;
-  height: 700px;
-  background: var(--green-light);
-  border-radius: 50%;
-  pointer-events: none;
+  z-index: -1;
 }
 
 .heroInner {
@@ -250,6 +240,7 @@
 
 .aboutCard {
   background: var(--green-light);
+  border: 2px solid var(--green);
   border-radius: var(--radius-lg);
   padding: 40px 28px;
   text-align: center;
@@ -308,6 +299,7 @@
 
 .featureCard {
   background: var(--green-light);
+  border: 2px solid var(--green);
   border-radius: var(--radius-lg);
   padding: 32px 24px;
   text-align: center;
@@ -369,6 +361,7 @@
   position: relative;
   padding: 32px 16px;
   background: var(--bg);
+  border: 2px solid var(--green);
   border-radius: var(--radius-lg);
   transition: all 0.3s ease;
 }
@@ -477,17 +470,24 @@
 
 /* ========== FOOTER ========== */
 .footer {
-  padding: 40px 0;
+  padding: 60px 0 40px;
   background: var(--text);
   color: white;
+  position: relative;
+  overflow: hidden;
 }
 
 .footerInner {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  text-align: center;
+  gap: 32px;
+}
+
+.footerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
 }
 
 .footerBrand {
@@ -502,6 +502,13 @@
   font-weight: 700;
 }
 
+.footerLogo svg {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
 .footerBrand p {
   font-size: 0.9rem;
   opacity: 0.7;
@@ -509,7 +516,7 @@
 
 .footerLinks {
   display: flex;
-  gap: 24px;
+  gap: 32px;
 }
 
 .footerLink {

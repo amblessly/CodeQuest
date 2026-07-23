@@ -12,14 +12,14 @@ import styles from "./page.module.css";
 export default function Home() {
   return (
     <>
+      <div className={styles.bgCircle} style={{ width: 500, height: 500, top: "10%", left: "-10%", opacity: 0.6 }} />
+      <div className={styles.bgCircle} style={{ width: 300, height: 300, top: "40%", right: "-5%", opacity: 0.4 }} />
+      <div className={styles.bgCircle} style={{ width: 200, height: 200, bottom: "20%", left: "5%", opacity: 0.5 }} />
+      <div className={styles.bgCircle} style={{ width: 400, height: 400, bottom: "-10%", right: "10%", opacity: 0.3 }} />
+      <div className={styles.bgCircle} style={{ width: 150, height: 150, top: "60%", left: "30%", opacity: 0.35 }} />
+      <div className={styles.bgCircle} style={{ width: 250, height: 250, top: "15%", right: "25%", opacity: 0.25 }} />
       <Navbar />
-      <main style={{ position: "relative" }}>
-        <div className={styles.bgCircle} style={{ width: 500, height: 500, top: "10%", left: "-10%", opacity: 0.6 }} />
-        <div className={styles.bgCircle} style={{ width: 300, height: 300, top: "40%", right: "-5%", opacity: 0.4 }} />
-        <div className={styles.bgCircle} style={{ width: 200, height: 200, bottom: "20%", left: "5%", opacity: 0.5 }} />
-        <div className={styles.bgCircle} style={{ width: 400, height: 400, bottom: "-10%", right: "10%", opacity: 0.3 }} />
-        <div className={styles.bgCircle} style={{ width: 150, height: 150, top: "60%", left: "30%", opacity: 0.35 }} />
-        <div className={styles.bgCircle} style={{ width: 250, height: 250, top: "15%", right: "25%", opacity: 0.25 }} />
+      <main>
         <HeroSection />
         <AboutSection />
         <FeaturesSection />
@@ -84,7 +84,6 @@ function HeroSection() {
           </div>
         </div>
       </div>
-      <div className={styles.heroBgShape} />
     </section>
   );
 }
@@ -226,15 +225,19 @@ function CTASection() {
 function Footer() {
   return (
     <footer className={styles.footer}>
+      <div className={styles.bgCircle} style={{ width: 300, height: 300, top: "-30%", right: "-5%", opacity: 0.15, background: "white" }} />
+      <div className={styles.bgCircle} style={{ width: 180, height: 180, bottom: "-20%", left: "10%", opacity: 0.12, background: "white" }} />
       <div className={`container ${styles.footerInner}`}>
-        <div className={styles.footerBrand}>
-          <span className={styles.footerLogo}><GameIcon /> CodeQuest</span>
-          <p>Making coding fun, one quiz at a time.</p>
-        </div>
-        <div className={styles.footerLinks}>
-          <a href="#about" className={styles.footerLink}>About</a>
-          <a href="#features" className={styles.footerLink}>Features</a>
-          <a href="#how" className={styles.footerLink}>How It Works</a>
+        <div className={styles.footerTop}>
+          <div className={styles.footerBrand}>
+            <span className={styles.footerLogo}><GameIcon /> CodeQuest</span>
+            <p>Making coding fun, one quiz at a time.</p>
+          </div>
+          <div className={styles.footerLinks}>
+            <a href="#about" className={styles.footerLink}>About</a>
+            <a href="#features" className={styles.footerLink}>Features</a>
+            <a href="#how" className={styles.footerLink}>How It Works</a>
+          </div>
         </div>
         <div className={styles.footerCopyright}>
           © 2026 CodeQuest. All rights reserved.

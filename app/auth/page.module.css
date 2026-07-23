@@ -10,11 +10,11 @@
 }
 
 .bgCircle {
-  position: absolute;
+  position: fixed;
   border-radius: 50%;
   background: var(--green-light);
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 
 .backLink {
