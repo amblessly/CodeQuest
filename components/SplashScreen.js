@@ -38,7 +38,7 @@ export default function SplashScreen() {
               <span className={`${styles.circle} ${phase === 'expanding' ? styles.grow : ''}`} />
             </span>
           ) : (
-            <span key={i} className={`${styles.char} ${typed > i ? styles.visible : ''}`}>
+            <span key={i} className={`${styles.char} ${typed > i ? styles.visible : ''} ${phase === 'expanding' ? styles.fadeOut : ''}`}>
               {char}
             </span>
           )
