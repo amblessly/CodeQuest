@@ -13,7 +13,13 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
+      <main style={{ position: "relative" }}>
+        <div className={styles.bgCircle} style={{ width: 500, height: 500, top: "10%", left: "-10%", opacity: 0.6 }} />
+        <div className={styles.bgCircle} style={{ width: 300, height: 300, top: "40%", right: "-5%", opacity: 0.4 }} />
+        <div className={styles.bgCircle} style={{ width: 200, height: 200, bottom: "20%", left: "5%", opacity: 0.5 }} />
+        <div className={styles.bgCircle} style={{ width: 400, height: 400, bottom: "-10%", right: "10%", opacity: 0.3 }} />
+        <div className={styles.bgCircle} style={{ width: 150, height: 150, top: "60%", left: "30%", opacity: 0.35 }} />
+        <div className={styles.bgCircle} style={{ width: 250, height: 250, top: "15%", right: "25%", opacity: 0.25 }} />
         <HeroSection />
         <AboutSection />
         <FeaturesSection />

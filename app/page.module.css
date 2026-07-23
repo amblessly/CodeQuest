@@ -9,6 +9,14 @@
   background: white;
 }
 
+.bgCircle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--green-light);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .heroBgShape {
   position: absolute;
   top: -50%;

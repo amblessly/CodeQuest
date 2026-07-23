@@ -9,6 +9,14 @@
   overflow: hidden;
 }
 
+.bgCircle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--green-light);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .backLink {
   position: fixed;
   top: 20px;

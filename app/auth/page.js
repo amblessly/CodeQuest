@@ -110,6 +110,9 @@ export default function AuthPage() {
 
   return (
     <div className={styles.page}>
+      <div className={styles.bgCircle} style={{ width: 400, height: 400, top: "-10%", right: "-10%", opacity: 0.5 }} />
+      <div className={styles.bgCircle} style={{ width: 250, height: 250, bottom: "10%", left: "-8%", opacity: 0.35 }} />
+      <div className={styles.bgCircle} style={{ width: 180, height: 180, top: "40%", right: "15%", opacity: 0.25 }} />
       <a href="/" className={styles.backLink}>← Back</a>
 
       <div className={styles.card}>
