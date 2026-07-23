@@ -24,7 +24,7 @@ export default async function DashboardPage() {
       background: "linear-gradient(180deg, #e5f5d1 0%, #f7f7f7 100%)",
       fontFamily: "'Nunito', sans-serif",
     }}>
-      <span style={{ fontSize: "4rem" }}><SwordIcon /></span>
+      <span style={{ width: "64px", height: "64px", display: "inline-block" }}><SwordIcon /></span>
       <h1 style={{ fontFamily: "'Fredoka', sans-serif", fontSize: "2rem" }}>
         Welcome, {session.user.name || "Hero"}!
       </h1>

@@ -114,7 +114,7 @@ export default function AuthPage() {
 
       <div className={styles.card}>
         <div className={styles.cardHeader}>
-          <span className={styles.logo}><SwordIcon />
+          <span className={styles.logo}><SwordIcon /></span>
           <h1 className={styles.title}>CodeQuest</h1>
         </div>
 
