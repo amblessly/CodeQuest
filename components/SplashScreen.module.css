@@ -49,13 +49,12 @@
   z-index: 2;
 }
 
-.bounceIn {
-  animation: bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+.hideText {
+  visibility: hidden;
 }
 
-.fadeOut {
-  opacity: 0 !important;
-  transition: opacity 0.15s ease;
+.bounceIn {
+  animation: bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 @keyframes bounceIn {

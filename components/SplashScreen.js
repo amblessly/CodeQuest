@@ -31,14 +31,14 @@ export default function SplashScreen() {
           i === 1 ? (
             <span key={i} className={styles.oWrap}>
               <span
-                className={`${styles.oLetter} ${typed > i ? styles.bounceIn : ''} ${phase === 'expanding' ? styles.fadeOut : ''}`}
+                className={`${styles.oLetter} ${typed > i ? styles.bounceIn : ''} ${phase === 'expanding' ? styles.hideText : ''}`}
               >
                 {char}
               </span>
               <span className={`${styles.circle} ${phase === 'expanding' ? styles.grow : ''}`} />
             </span>
           ) : (
-            <span key={i} className={`${styles.char} ${typed > i ? styles.visible : ''} ${phase === 'expanding' ? styles.fadeOut : ''}`}>
+            <span key={i} className={`${styles.char} ${typed > i ? styles.visible : ''} ${phase === 'expanding' ? styles.hideText : ''}`}>
               {char}
             </span>
           )
