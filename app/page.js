@@ -1,5 +1,6 @@
 import Navbar from "@/components/ui/Navbar";
 import Button from "@/components/ui/Button";
+import RevealOnScroll from "@/components/RevealOnScroll";
 import {
   GameIcon, BookIcon, TargetIcon, MedalIcon, MapIcon,
   SnakeIcon, GlobeIcon, DatabaseIcon, LightningIcon,
@@ -85,6 +86,7 @@ function HeroSection() {
 function AboutSection() {
   return (
     <section id="about" className={styles.about}>
+      <RevealOnScroll>
       <div className={`container ${styles.sectionInner}`}>
         <div className={styles.sectionHeader}>
           <span className={styles.sectionEmoji}><BookIcon /></span>
@@ -112,6 +114,7 @@ function AboutSection() {
           </div>
         </div>
       </div>
+      </RevealOnScroll>
     </section>
   );
 }
@@ -128,6 +131,7 @@ function FeaturesSection() {
 
   return (
     <section id="features" className={styles.features}>
+      <RevealOnScroll>
       <div className={`container ${styles.sectionInner}`}>
         <div className={styles.sectionHeader}>
           <span className={styles.sectionEmoji}><TrophyIcon /></span>
@@ -150,6 +154,7 @@ function FeaturesSection() {
           ))}
         </div>
       </div>
+      </RevealOnScroll>
     </section>
   );
 }
@@ -164,6 +169,7 @@ function HowItWorksSection() {
 
   return (
     <section id="how" className={styles.how}>
+      <RevealOnScroll>
       <div className={`container ${styles.sectionInner}`}>
         <div className={styles.sectionHeader}>
           <span className={styles.sectionEmoji}><JoystickIcon /></span>
@@ -183,6 +189,7 @@ function HowItWorksSection() {
           ))}
         </div>
       </div>
+      </RevealOnScroll>
     </section>
   );
 }
@@ -190,6 +197,7 @@ function HowItWorksSection() {
 function CTASection() {
   return (
     <section className={styles.cta}>
+      <RevealOnScroll>
       <div className={`container ${styles.ctaInner}`}>
         <div className={styles.ctaArt}>
           <span className={styles.ctaEmoji}><GameIcon /></span>
@@ -204,6 +212,7 @@ function CTASection() {
           Get Started Now →
         </Button>
       </div>
+      </RevealOnScroll>
     </section>
   );
 }
