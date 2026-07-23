@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "CodeQuest",
-  description: "Learn to code through quizzes and challenges",
+  title: "CodeQuest - Learn to Code Through Play",
+  description: "CodeQuest turns coding into an adventure! Solve fun quizzes, earn XP, unlock levels, and become a coding hero.",
 };
 
 export default function RootLayout({ children }) {
