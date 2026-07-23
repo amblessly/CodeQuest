@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   background: var(--green-light);
-  transition: opacity 0.1s ease;
+  transition: opacity 0.3s ease;
   pointer-events: all;
 }
 
