@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
-import { SwordIcon, LaptopIcon, LightningIcon, JoystickIcon, TrophyIcon, SparkleIcon, RocketIcon } from "@/components/ui/Icons";
+import { GameIcon, LaptopIcon, LightningIcon, JoystickIcon, TrophyIcon, SparkleIcon, StarIcon } from "@/components/ui/Icons";
 import styles from "./page.module.css";
 
 const UserIcon = () => (
@@ -114,7 +114,7 @@ export default function AuthPage() {
 
       <div className={styles.card}>
         <div className={styles.cardHeader}>
-          <span className={styles.logo}><SwordIcon /></span>
+          <span className={styles.logo}><GameIcon /></span>
           <h1 className={styles.title}>CodeQuest</h1>
         </div>
 
@@ -198,7 +198,7 @@ export default function AuthPage() {
         <span><JoystickIcon /></span>
         <span><TrophyIcon /></span>
         <span><SparkleIcon /></span>
-        <span><RocketIcon /></span>
+        <span><StarIcon /></span>
       </div>
     </div>
   );

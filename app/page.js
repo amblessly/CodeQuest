@@ -2,9 +2,9 @@ import Navbar from "@/components/ui/Navbar";
 import Button from "@/components/ui/Button";
 import {
   GameIcon, BookIcon, TargetIcon, MedalIcon, MapIcon,
-  RocketIcon, SnakeIcon, GlobeIcon, DatabaseIcon, LightningIcon,
+  SnakeIcon, GlobeIcon, DatabaseIcon, LightningIcon,
   LockIcon, RobotIcon, JoystickIcon, PencilIcon, PuzzleIcon,
-  TrophyIcon, LaptopIcon, SwordIcon, StarIcon, LightbulbIcon, SparkleIcon,
+  TrophyIcon, LaptopIcon, StarIcon, LightbulbIcon, SparkleIcon,
 } from "@/components/ui/Icons";
 import styles from "./page.module.css";
 
@@ -65,7 +65,7 @@ function HeroSection() {
         </div>
         <div className={`${styles.heroVisual} animate-float`}>
           <div className={styles.heroArt}>
-            <span className={styles.heroEmoji}><SwordIcon /></span>
+            <span className={styles.heroEmoji}><GameIcon /></span>
             <div className={styles.codeBubble}>
               <span className={styles.codeLine} style={{ "--i": 1 }}>def hello():</span>
               <span className={styles.codeLine} style={{ "--i": 2 }}>&nbsp;&nbsp;print("CodeQuest!")</span>
@@ -130,7 +130,7 @@ function FeaturesSection() {
     <section id="features" className={styles.features}>
       <div className={`container ${styles.sectionInner}`}>
         <div className={styles.sectionHeader}>
-          <span className={styles.sectionEmoji}><RocketIcon /></span>
+          <span className={styles.sectionEmoji}><TrophyIcon /></span>
           <h2 className={styles.sectionTitle}>Choose Your Path</h2>
           <p className={styles.sectionDesc}>
             Multiple categories to explore. Start anywhere, learn everything!
@@ -213,7 +213,7 @@ function Footer() {
     <footer className={styles.footer}>
       <div className={`container ${styles.footerInner}`}>
         <div className={styles.footerBrand}>
-          <span className={styles.footerLogo}><SwordIcon /> CodeQuest</span>
+          <span className={styles.footerLogo}><GameIcon /> CodeQuest</span>
           <p>Making coding fun, one quiz at a time.</p>
         </div>
         <div className={styles.footerLinks}>
