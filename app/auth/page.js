@@ -57,6 +57,7 @@ export default function AuthPage() {
           email,
           password,
           name: username,
+          username,
         });
         if (signUpError) {
           setError(signUpError.message || signUpError.code || "Something went wrong");
