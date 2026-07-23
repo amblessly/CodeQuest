@@ -1,0 +1,66 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green-light);
+  transition: opacity 0.5s ease 0.2s;
+  pointer-events: all;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.char {
+  transition: opacity 0.3s ease;
+  transition-delay: 0.1s;
+}
+
+.charFade {
+  opacity: 0;
+}
+
+.oWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.oLetter {
+  z-index: 2;
+  position: relative;
+}
+
+.circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin-top: -16px;
+  margin-left: -16px;
+  background: white;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.grow {
+  transform: scale(80);
+}
