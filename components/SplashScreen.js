@@ -7,24 +7,30 @@ export default function SplashScreen() {
   const [phase, setPhase] = useState('idle')
 
   useEffect(() => {
-    const shown = sessionStorage.getItem('cqsplash')
-    if (shown) { setPhase('done'); return }
-    sessionStorage.setItem('cqsplash', '1')
-
-    const t1 = setTimeout(() => setPhase('expanding'), 900)
-    const t2 = setTimeout(() => setPhase('done'), 2400)
-    return () => { clearTimeout(t1); clearTimeout(t2) }
+    const t1 = setTimeout(() => setPhase('bouncing'), 400)
+    const t2 = setTimeout(() => setPhase('assembled'), 1000)
+    const t3 = setTimeout(() => setPhase('expanding'), 1500)
+    const t4 = setTimeout(() => setPhase('done'), 2800)
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4) }
   }, [])
 
   return (
     <div className={`${styles.splash} ${phase === 'done' ? styles.hidden : ''}`}>
       <div className={styles.wordmark}>
-        <span className={`${styles.char} ${phase !== 'idle' ? styles.charFade : ''}`}>C</span>
+        <span className={styles.char}>C</span>
         <span className={styles.oWrap}>
-          <span className={`${styles.char} ${styles.oLetter} ${phase !== 'idle' ? styles.charFade : ''}`}>o</span>
-          <span className={`${styles.circle} ${phase !== 'idle' ? styles.grow : ''}`} />
+          <span
+            className={`${styles.oLetter} ${
+              phase === 'bouncing' || phase === 'assembled' ? styles.bounceIn : ''
+            } ${phase === 'expanding' ? styles.fadeOut : ''}`}
+          >
+            o
+          </span>
+          <span
+            className={`${styles.circle} ${phase === 'expanding' ? styles.grow : ''}`}
+          />
         </span>
-        <span className={`${styles.char} ${phase !== 'idle' ? styles.charFade : ''}`}>deQuest</span>
+        <span className={styles.char}>deQuest</span>
       </div>
     </div>
   )
