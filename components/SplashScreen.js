@@ -1,45 +1,46 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./SplashScreen.module.css";
 
 export default function SplashScreen() {
   const [phase, setPhase] = useState("enter");
+  const splashRef = useRef(null);
 
   useEffect(() => {
     const shown = sessionStorage.getItem("cq_splash");
     if (shown) {
+      setPhase("gone");
       return;
     }
 
     const fadeTimer = setTimeout(() => {
       setPhase("exit");
-    }, 2800);
+    }, 5000);
 
-    const removeTimer = setTimeout(() => {
-      sessionStorage.setItem("cq_splash", "1");
-    }, 3300);
-
-    return () => {
-      clearTimeout(fadeTimer);
-      clearTimeout(removeTimer);
-    };
+    return () => clearTimeout(fadeTimer);
   }, []);
+
+  useEffect(() => {
+    if (phase === "exit" && splashRef.current) {
+      const el = splashRef.current;
+      const onEnd = () => setPhase("gone");
+      el.addEventListener("animationend", onEnd);
+      sessionStorage.setItem("cq_splash", "1");
+      return () => el.removeEventListener("animationend", onEnd);
+    }
+  }, [phase]);
 
   if (phase === "gone") return null;
 
   return (
-    <div
-      className={`${styles.splash} ${phase === "exit" ? styles.splashExit : ""}`}
-      onAnimationEnd={() => {
-        if (phase === "exit") setPhase("gone");
-      }}
-    >
-      <div className={styles.bgShapes}>
-        <span className={styles.shape} style={{ top: "15%", left: "10%", width: 60, height: 60, background: "rgba(255,255,255,0.08)", borderRadius: 12, animationDelay: "0.5s" }} />
-        <span className={styles.shape} style={{ top: "60%", right: "15%", width: 40, height: 40, background: "rgba(255,255,255,0.06)", borderRadius: "50%", animationDelay: "1s" }} />
-        <span className={styles.shape} style={{ bottom: "20%", left: "20%", width: 50, height: 50, background: "rgba(255,255,255,0.07)", borderRadius: 8, animationDelay: "1.5s" }} />
-        <span className={styles.shape} style={{ top: "25%", right: "25%", width: 30, height: 30, background: "rgba(255,255,255,0.05)", borderRadius: "50%", animationDelay: "0.8s" }} />
+    <div ref={splashRef} className={`${styles.splash} ${phase === "exit" ? styles.splashExit : ""}`}>
+      <div className={styles.circles}>
+        <span className={styles.ring} style={{ width: 300, height: 300, top: "5%", left: "-10%", animationDelay: "0s" }} />
+        <span className={styles.ring} style={{ width: 200, height: 200, top: "60%", right: "-5%", animationDelay: "0.8s" }} />
+        <span className={styles.ring} style={{ width: 150, height: 150, bottom: "10%", left: "15%", animationDelay: "1.6s" }} />
+        <span className={styles.ring} style={{ width: 100, height: 100, top: "30%", right: "20%", animationDelay: "2.4s" }} />
+        <span className={styles.ring} style={{ width: 80, height: 80, top: "10%", right: "35%", animationDelay: "0.4s" }} />
       </div>
       <div className={styles.inner}>
         <div className={styles.icon}>
@@ -52,12 +53,12 @@ export default function SplashScreen() {
         </div>
         <div className={styles.text}>
           {"CodeQuest".split("").map((ch, i) => (
-            <span key={i} className={styles.char} style={{ animationDelay: `${0.4 + i * 0.08}s` }}>
+            <span key={i} className={styles.char} style={{ animationDelay: `${0.5 + i * 0.1}s` }}>
               {ch}
             </span>
           ))}
         </div>
-        <div className={styles.tagline} style={{ animationDelay: "1.6s" }}>
+        <div className={styles.tagline} style={{ animationDelay: "1.8s" }}>
           Learn to Code Through Play
         </div>
       </div>
