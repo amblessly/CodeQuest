@@ -340,6 +340,28 @@
   background: var(--green-hover);
 }
 
+.resendBtn {
+  background: none;
+  border: 2px solid var(--green);
+  color: var(--green);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 10px 28px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.resendBtn:hover:not(:disabled) {
+  background: var(--green-light);
+}
+
+.resendBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
   .card {

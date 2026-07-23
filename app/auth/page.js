@@ -84,6 +84,33 @@ function AuthPageContent() {
   const [showConfirmPw, setShowConfirmPw] = useState(false);
   const [verified, setVerified] = useState(false);
   const [signedUpEmail, setSignedUpEmail] = useState("");
+  const [resendCooldown, setResendCooldown] = useState(0);
+
+  useEffect(() => {
+    if (searchParams.get("verified") === "1") {
+      setVerified(true);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (resendCooldown <= 0) return;
+    const t = setTimeout(() => setResendCooldown(c => c - 1), 1000);
+    return () => clearTimeout(t);
+  }, [resendCooldown]);
+
+  async function handleResend() {
+    if (resendCooldown > 0) return;
+    const supabase = createClient();
+    const { error } = await supabase.auth.resend({
+      type: "signup",
+      email: signedUpEmail,
+    });
+    if (!error) {
+      setResendCooldown(60);
+    } else {
+      setError(error.message);
+    }
+  }
 
   useEffect(() => {
     if (searchParams.get("verified") === "1") {
@@ -184,6 +211,13 @@ function AuthPageContent() {
             >
               Open Gmail
             </a>
+            <button
+              className={styles.resendBtn}
+              onClick={handleResend}
+              disabled={resendCooldown > 0}
+            >
+              {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : "Resend Email"}
+            </button>
             <button
               className={styles.switchLink}
               onClick={() => { setSignedUpEmail(""); setMode("login"); }}
