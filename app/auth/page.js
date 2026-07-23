@@ -112,12 +112,6 @@ function AuthPageContent() {
     }
   }
 
-  useEffect(() => {
-    if (searchParams.get("verified") === "1") {
-      setVerified(true);
-    }
-  }, [searchParams]);
-
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");

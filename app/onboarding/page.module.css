@@ -1,0 +1,358 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.bgCircle {
+  position: fixed;
+  border-radius: 50%;
+  background: var(--green-light);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.card {
+  background: white;
+  border: 2px solid var(--green);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px 28px;
+  max-width: 560px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--shadow-lg);
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--green-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--green-text);
+  transition: all 0.3s ease;
+}
+
+.dotActive {
+  background: var(--green);
+  color: white;
+}
+
+.dotCurrent {
+  box-shadow: 0 0 0 4px var(--green-light);
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.iconWrap {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.iconWrap svg {
+  width: 40px;
+  height: 40px;
+  color: var(--green);
+}
+
+.title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+
+.desc {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 20px 12px;
+  background: var(--green-light);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-align: center;
+}
+
+.option:hover {
+  border-color: var(--green);
+  transform: translateY(-2px);
+}
+
+.optionActive {
+  border-color: var(--green);
+  background: white;
+  box-shadow: 0 0 0 3px var(--green-light);
+}
+
+.optionIcon svg {
+  width: 32px;
+  height: 32px;
+  color: var(--green);
+}
+
+.optionLabel {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.optionDesc {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  line-height: 1.3;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.rowOption {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--green-light);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+}
+
+.rowOption:hover {
+  border-color: var(--green);
+}
+
+.rowOptionActive {
+  border-color: var(--green);
+  background: white;
+  box-shadow: 0 0 0 3px var(--green-light);
+}
+
+.radio {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.radioDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.rowLabel {
+  display: block;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.rowDesc {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+.targetGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.targetOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 24px 12px;
+  background: var(--green-light);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.targetOption:hover {
+  border-color: var(--green);
+}
+
+.targetOptionActive {
+  border-color: var(--green);
+  background: white;
+  box-shadow: 0 0 0 3px var(--green-light);
+}
+
+.targetNumber {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.targetUnit {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: var(--green-light);
+  border-radius: var(--radius);
+}
+
+.summaryLabel {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.summaryValue {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 28px;
+  gap: 12px;
+}
+
+.backBtn {
+  background: none;
+  border: 2px solid var(--green);
+  color: var(--green);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.backBtn:hover {
+  background: var(--green-light);
+}
+
+.continueBtn {
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px 32px;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 4px 0 var(--green-hover);
+  flex: 1;
+}
+
+.continueBtn:hover:not(:disabled) {
+  background: var(--green-hover);
+}
+
+.continueBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 28px 18px 24px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .targetGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .title {
+    font-size: 1.3rem;
+  }
+}
