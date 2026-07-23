@@ -138,6 +138,22 @@
   color: var(--text);
 }
 
+.eyeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  color: #bbb;
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.eyeBtn:hover {
+  color: var(--text-light);
+}
+
 .input {
   flex: 1;
   border: none;
