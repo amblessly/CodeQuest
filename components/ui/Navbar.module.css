@@ -37,12 +37,7 @@
   font-family: 'Fredoka', sans-serif;
   font-size: 1.6rem;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--green-text), var(--blue));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% 200%;
-  animation: gradientMove 3s ease infinite;
+  color: var(--green-text);
 }
 
 .navLinks {

@@ -21,7 +21,7 @@ export default async function DashboardPage() {
       justifyContent: "center",
       gap: "16px",
       padding: "40px 20px",
-      background: "linear-gradient(180deg, #FFE8D0 0%, #f7f7f7 100%)",
+      background: "#F3EEF7",
       fontFamily: "'Nunito', sans-serif",
     }}>
       <span style={{ width: "64px", height: "64px", display: "inline-block" }}><GameIcon /></span>

@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap');
 
 :root {
-  --green: #FBEFEF;
-  --green-hover: #F2D8D8;
-  --green-light: #FFF8F8;
-  --green-text: #E8A090;
+  --green: #C5B3D3;
+  --green-hover: #B09EC0;
+  --green-light: #F3EEF7;
+  --green-text: #8B7A9B;
   --blue: #1CB0F6;
   --blue-hover: #0f8fc9;
   --blue-light: #d5f0fd;
@@ -105,12 +105,6 @@ img {
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 
 .animate-bounce { animation: bounce 2s ease-in-out infinite; }

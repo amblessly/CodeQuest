@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 32px 20px;
-  background: linear-gradient(180deg, #e5f5d1 0%, #f7f7f7 50%, #d5f0fd 100%);
+  background: white;
   position: relative;
   overflow: hidden;
 }
@@ -64,12 +64,7 @@
 .title {
   font-family: 'Fredoka', sans-serif;
   font-size: 1.4rem;
-  background: linear-gradient(135deg, var(--green-text), var(--blue));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% 200%;
-  animation: gradientMove 3s ease infinite;
+  color: var(--green-text);
 }
 
 /* ===== TABS ===== */
