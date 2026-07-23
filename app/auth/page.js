@@ -87,7 +87,9 @@ export default function AuthPage() {
           setLoading(false);
           return;
         }
-        router.push("/dashboard");
+        setMode("login");
+        setError("Account created! Check your email for a welcome message.");
+        setLoading(false);
       } else {
         const { error: signInError } = await authClient.signIn.email({
           email,

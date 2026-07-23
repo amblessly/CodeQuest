@@ -14,6 +14,7 @@ npm run lint    # Run ESLint
 - Supabase PostgreSQL via Prisma
 - `npx prisma generate` - Regenerate Prisma client after schema changes
 - Use `node scripts/push-schema.js` to push schema changes to DB (Prisma v7 adapter)
+- Use `node scripts/enable-rls.js` to enable RLS + policies on all tables (silences Supabase dashboard warnings)
 
 ## Stack
 
