@@ -20,7 +20,7 @@ export default function SplashScreen() {
   useEffect(() => {
     if (typed < WORD.length) return
     const t1 = setTimeout(() => setPhase('expanding'), 700)
-    const t2 = setTimeout(() => setPhase('done'), 2200)
+    const t2 = setTimeout(() => setPhase('done'), 2700)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [typed])
 
