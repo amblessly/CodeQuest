@@ -1,4 +1,3 @@
-import SplashScreen from "@/components/SplashScreen";
 import Navbar from "@/components/ui/Navbar";
 import Button from "@/components/ui/Button";
 import RevealOnScroll from "@/components/RevealOnScroll";
@@ -13,7 +12,6 @@ import styles from "./page.module.css";
 export default function Home() {
   return (
     <>
-      <SplashScreen />
       <div className={styles.bgCircle} style={{ width: 500, height: 500, top: "10%", left: "-10%", opacity: 0.6 }} />
       <div className={styles.bgCircle} style={{ width: 300, height: 300, top: "40%", right: "-5%", opacity: 0.4 }} />
       <div className={styles.bgCircle} style={{ width: 200, height: 200, bottom: "20%", left: "5%", opacity: 0.5 }} />
