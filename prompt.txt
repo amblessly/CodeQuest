@@ -1,0 +1,17 @@
+CodeQuest Logo — Image Generation Prompt
+
+Style: Duolingo-style cartoon, flat vector illustration, bold outlines, vibrant colors, playful and friendly mascot-driven design.
+
+Subject: A cute chibi knight/adventurer mascot standing proudly, holding a glowing sword (or a shield with a "CQ" emblem). The knight wears a blue hooded cape and a small silver helmet. Next to them floats a glowing green gem or a scrolling code window with "{}" and "</>" symbols. The background is a soft warm gradient (light green to light blue).
+
+Color Palette:
+- Primary Green: #58CC02 (same as Duolingo)
+- Secondary Blue: #2B6CB0
+- Accent Orange: #FF9600
+- White and soft cream for highlights
+
+Text: "CodeQuest" in a bold, rounded Fredoka-style font, colored with a gradient from green (#58CC02) to blue (#2B6CB0). The text has a playful slight curve or tilt.
+
+Layout: Landscape or square, suitable for website header / app icon / favicon.
+
+Vibe: Fun, adventurous, educational, gamified — like a coding game for kids and beginners.
