@@ -121,12 +121,12 @@ function AboutSection() {
 
 function FeaturesSection() {
   const features = [
-    { icon: SnakeIcon, title: "Python", desc: "Master Python from basics to advanced", color: "var(--blue)" },
-    { icon: GlobeIcon, title: "Web Dev", desc: "HTML, CSS, JavaScript & frameworks", color: "var(--orange)" },
-    { icon: DatabaseIcon, title: "Databases", desc: "SQL, NoSQL & data modeling", color: "var(--purple)" },
-    { icon: LightningIcon, title: "Algorithms", desc: "Problem-solving & data structures", color: "var(--green)" },
-    { icon: LockIcon, title: "Security", desc: "Cyber security fundamentals", color: "var(--red)" },
-    { icon: RobotIcon, title: "AI & ML", desc: "Intro to artificial intelligence", color: "var(--blue)" },
+    { icon: SnakeIcon, title: "Python", desc: "Master Python from basics to advanced" },
+    { icon: GlobeIcon, title: "Web Dev", desc: "HTML, CSS, JavaScript & frameworks" },
+    { icon: DatabaseIcon, title: "Databases", desc: "SQL, NoSQL & data modeling" },
+    { icon: LightningIcon, title: "Algorithms", desc: "Problem-solving & data structures" },
+    { icon: LockIcon, title: "Security", desc: "Cyber security fundamentals" },
+    { icon: RobotIcon, title: "AI & ML", desc: "Intro to artificial intelligence" },
   ];
 
   return (
@@ -145,7 +145,7 @@ function FeaturesSection() {
             <div
               key={i}
               className={`${styles.featureCard} animate-fadeInUp`}
-              style={{ animationDelay: `${i * 0.1}s`, "--card-color": f.color }}
+              style={{ animationDelay: `${i * 0.1}s` }}
             >
               <div className={styles.featureIcon}><f.icon /></div>
               <h3 className={styles.featureTitle}>{f.title}</h3>

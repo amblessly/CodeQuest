@@ -46,7 +46,7 @@
   font-family: 'Fredoka', sans-serif;
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--green-text);
+  color: var(--green);
   width: fit-content;
   box-shadow: 0 2px 8px rgba(232,160,144,0.25);
 }
@@ -54,7 +54,7 @@
 .heroBadge svg {
   width: 20px;
   height: 20px;
-  color: var(--green-text);
+  color: var(--green);
 }
 
 .heroTitle {
@@ -64,7 +64,7 @@
 }
 
 .heroHighlight {
-  color: var(--green-text);
+  color: var(--green);
 }
 
 .heroSub {
@@ -110,7 +110,7 @@
   font-family: 'Fredoka', sans-serif;
   font-size: 1.6rem;
   font-weight: 700;
-  color: var(--green-text);
+  color: var(--green);
 }
 
 .statLabel {
@@ -169,7 +169,7 @@
 }
 
 .codeLine:last-child {
-  color: var(--green-text);
+  color: var(--green);
 }
 .codeLine svg {
   width: 16px;
@@ -219,7 +219,7 @@
 .sectionEmoji svg {
   width: 40px;
   height: 40px;
-  color: var(--green-text);
+  color: var(--green);
 }
 
 .sectionTitle {
@@ -249,14 +249,12 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  border: 2px solid var(--border);
   transition: all 0.3s ease;
 }
 
 .aboutCard:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--green-light);
 }
 
 .aboutCardIcon {
@@ -273,7 +271,7 @@
 .aboutCardIcon svg {
   width: 34px;
   height: 34px;
-  color: var(--green-text);
+  color: var(--green);
 }
 
 .aboutCard h3 {
@@ -305,7 +303,6 @@
   border-radius: var(--radius-lg);
   padding: 32px 24px;
   text-align: center;
-  border: 2px solid var(--border);
   transition: all 0.25s ease;
   cursor: default;
 }
@@ -313,7 +310,6 @@
 .featureCard:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: var(--shadow-lg);
-  border-color: var(--card-color);
 }
 
 .featureIcon {
@@ -327,7 +323,7 @@
 .featureIcon svg {
   width: 40px;
   height: 40px;
-  color: var(--card-color, var(--green-text));
+  color: var(--green);
 }
 
 .featureTitle {
@@ -366,14 +362,12 @@
   padding: 32px 16px;
   background: var(--bg);
   border-radius: var(--radius-lg);
-  border: 2px solid var(--border);
   transition: all 0.3s ease;
 }
 
 .step:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow);
-  border-color: var(--green-light);
 }
 
 .stepNumber {
@@ -401,7 +395,7 @@
 .stepEmoji svg {
   width: 36px;
   height: 36px;
-  color: var(--green-text);
+  color: var(--green);
 }
 
 .stepTitle {
@@ -449,17 +443,17 @@
 }
 
 .ctaEmoji svg {
-  width: 38px;
-  height: 38px;
-  color: var(--green-text);
+  width: 40px;
+  height: 40px;
+  color: var(--green);
 }
 
 .ctaEmoji:nth-child(2) svg {
-  color: var(--blue);
+  color: var(--green);
 }
 
 .ctaEmoji:nth-child(3) svg {
-  color: var(--orange);
+  color: var(--green);
 }
 
 .ctaTitle {
