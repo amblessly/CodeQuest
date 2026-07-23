@@ -26,7 +26,7 @@ export default function SplashScreen() {
 
   return (
     <div className={`${styles.splash} ${phase === 'done' ? styles.hidden : ''}`}>
-      {phase !== 'expanding' && (
+      {phase === 'typing' && (
         <div className={styles.wordmark}>
           {WORD.split('').map((char, i) => (
             i === 1 ? (
