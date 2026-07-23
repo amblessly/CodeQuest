@@ -37,7 +37,7 @@
   font-family: 'Fredoka', sans-serif;
   font-size: 1.6rem;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--green), var(--blue));
+  background: linear-gradient(135deg, var(--green-text), var(--blue));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -68,7 +68,7 @@
 
 .navCta {
   background: var(--green) !important;
-  color: white !important;
+  color: #2b2b2b !important;
   font-weight: 600;
   box-shadow: 0 4px 0 var(--green-hover);
   margin-left: 12px;

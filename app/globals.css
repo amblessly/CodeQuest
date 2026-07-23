@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap');
 
 :root {
-  --green: #FF8C42;
-  --green-hover: #E07830;
-  --green-light: #FFE8D0;
+  --green: #FBEFEF;
+  --green-hover: #F2D8D8;
+  --green-light: #FFF8F8;
+  --green-text: #E8A090;
   --blue: #1CB0F6;
   --blue-hover: #0f8fc9;
   --blue-light: #d5f0fd;
