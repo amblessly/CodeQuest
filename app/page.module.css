@@ -51,6 +51,12 @@
   box-shadow: 0 2px 8px rgba(88,204,2,0.15);
 }
 
+.heroBadge svg {
+  width: 20px;
+  height: 20px;
+  color: var(--green);
+}
+
 .heroTitle {
   font-size: 3.5rem;
   line-height: 1.1;
@@ -71,6 +77,17 @@
   color: var(--text-light);
   max-width: 480px;
   line-height: 1.7;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.heroSub svg {
+  width: 22px;
+  height: 22px;
+  color: var(--orange);
+  display: inline;
 }
 
 .heroActions {
@@ -188,6 +205,15 @@
 
 .sectionEmoji {
   font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sectionEmoji svg {
+  width: 40px;
+  height: 40px;
+  color: var(--green);
 }
 
 .sectionTitle {
@@ -228,7 +254,6 @@
 }
 
 .aboutCardIcon {
-  font-size: 3rem;
   background: var(--green-light);
   width: 80px;
   height: 80px;
@@ -237,6 +262,12 @@
   justify-content: center;
   border-radius: 50%;
   animation: wiggle 3s ease-in-out infinite;
+}
+
+.aboutCardIcon svg {
+  width: 34px;
+  height: 34px;
+  color: var(--green);
 }
 
 .aboutCard h3 {
@@ -280,9 +311,17 @@
 }
 
 .featureIcon {
-  font-size: 2.8rem;
   margin-bottom: 12px;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+}
+
+.featureIcon svg {
+  width: 40px;
+  height: 40px;
+  color: var(--card-color, var(--green));
 }
 
 .featureTitle {
@@ -347,7 +386,16 @@
 }
 
 .stepEmoji {
-  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+}
+
+.stepEmoji svg {
+  width: 36px;
+  height: 36px;
+  color: var(--green);
 }
 
 .stepTitle {
@@ -378,11 +426,12 @@
 .ctaArt {
   display: flex;
   gap: 16px;
-  font-size: 2.5rem;
+  align-items: center;
 }
 
 .ctaEmoji {
   animation: float 3s ease-in-out infinite;
+  display: flex;
 }
 
 .ctaEmoji:nth-child(2) {
@@ -391,6 +440,20 @@
 
 .ctaEmoji:nth-child(3) {
   animation-delay: 1s;
+}
+
+.ctaEmoji svg {
+  width: 38px;
+  height: 38px;
+  color: var(--green);
+}
+
+.ctaEmoji:nth-child(2) svg {
+  color: var(--blue);
+}
+
+.ctaEmoji:nth-child(3) svg {
+  color: var(--orange);
 }
 
 .ctaTitle {
