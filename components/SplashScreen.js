@@ -4,25 +4,37 @@ import { useEffect, useState } from "react";
 import styles from "./SplashScreen.module.css";
 
 export default function SplashScreen() {
-  const [visible, setVisible] = useState(true);
+  const [phase, setPhase] = useState("enter");
 
   useEffect(() => {
     const shown = sessionStorage.getItem("cq_splash");
     if (shown) {
-      setVisible(false);
       return;
     }
-    const timer = setTimeout(() => {
-      setVisible(false);
+
+    const fadeTimer = setTimeout(() => {
+      setPhase("exit");
+    }, 2800);
+
+    const removeTimer = setTimeout(() => {
       sessionStorage.setItem("cq_splash", "1");
-    }, 2600);
-    return () => clearTimeout(timer);
+    }, 3300);
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(removeTimer);
+    };
   }, []);
 
-  if (!visible) return null;
+  if (phase === "gone") return null;
 
   return (
-    <div className={styles.splash}>
+    <div
+      className={`${styles.splash} ${phase === "exit" ? styles.splashExit : ""}`}
+      onAnimationEnd={() => {
+        if (phase === "exit") setPhase("gone");
+      }}
+    >
       <div className={styles.bgShapes}>
         <span className={styles.shape} style={{ top: "15%", left: "10%", width: 60, height: 60, background: "rgba(255,255,255,0.08)", borderRadius: 12, animationDelay: "0.5s" }} />
         <span className={styles.shape} style={{ top: "60%", right: "15%", width: 40, height: 40, background: "rgba(255,255,255,0.06)", borderRadius: "50%", animationDelay: "1s" }} />
@@ -40,12 +52,12 @@ export default function SplashScreen() {
         </div>
         <div className={styles.text}>
           {"CodeQuest".split("").map((ch, i) => (
-            <span key={i} className={styles.char} style={{ animationDelay: `${0.6 + i * 0.1}s` }}>
+            <span key={i} className={styles.char} style={{ animationDelay: `${0.4 + i * 0.08}s` }}>
               {ch}
             </span>
           ))}
         </div>
-        <div className={styles.tagline} style={{ animationDelay: "1.8s" }}>
+        <div className={styles.tagline} style={{ animationDelay: "1.6s" }}>
           Learn to Code Through Play
         </div>
       </div>
