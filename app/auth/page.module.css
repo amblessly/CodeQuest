@@ -284,29 +284,6 @@
   color: var(--green-hover);
 }
 
-/* ===== FLOATING EMOJIS ===== */
-.floatingEmojis {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.floatingEmojis span {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  animation: float 4s ease-in-out infinite;
-  opacity: 0.4;
-}
-
-.floatingEmojis span:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
-.floatingEmojis span:nth-child(2) { top: 25%; right: 12%; animation-delay: 0.5s; width: 20px; height: 20px; }
-.floatingEmojis span:nth-child(3) { bottom: 30%; left: 8%; animation-delay: 1s; }
-.floatingEmojis span:nth-child(4) { bottom: 20%; right: 15%; animation-delay: 1.5s; }
-.floatingEmojis span:nth-child(5) { top: 50%; left: 5%; animation-delay: 2s; width: 18px; height: 18px; }
-.floatingEmojis span:nth-child(6) { top: 40%; right: 8%; animation-delay: 2.5s; width: 24px; height: 24px; }
-
 /* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
   .card {

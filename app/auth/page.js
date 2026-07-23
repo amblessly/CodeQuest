@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
-import { GameIcon, LaptopIcon, LightningIcon, JoystickIcon, TrophyIcon, SparkleIcon, StarIcon } from "@/components/ui/Icons";
+import { GameIcon } from "@/components/ui/Icons";
 import styles from "./page.module.css";
 
 const UserIcon = () => (
@@ -192,14 +192,6 @@ export default function AuthPage() {
         </p>
       </div>
 
-      <div className={styles.floatingEmojis}>
-        <span><LaptopIcon /></span>
-        <span><LightningIcon /></span>
-        <span><JoystickIcon /></span>
-        <span><TrophyIcon /></span>
-        <span><SparkleIcon /></span>
-        <span><StarIcon /></span>
-      </div>
     </div>
   );
 }

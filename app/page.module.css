@@ -258,7 +258,7 @@
 }
 
 .aboutCardIcon {
-  background: var(--green-light);
+  background: white;
   width: 80px;
   height: 80px;
   display: flex;
