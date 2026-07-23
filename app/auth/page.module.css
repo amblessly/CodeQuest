@@ -1,0 +1,303 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #e5f5d1 0%, #f7f7f7 50%, #d5f0fd 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.backLink {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-light);
+  text-decoration: none;
+  padding: 10px 18px;
+  background: white;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--border);
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.backLink:hover {
+  border-color: var(--green);
+  color: var(--green);
+  transform: translateX(-3px);
+}
+
+/* ===== CARD ===== */
+.card {
+  width: 100%;
+  max-width: 440px;
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  box-shadow: var(--shadow-lg);
+  border: 3px solid var(--border);
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.cardHeader {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.logo {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 8px;
+  animation: wiggle 2s ease-in-out infinite;
+}
+
+.title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, var(--green), var(--blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientMove 3s ease infinite;
+}
+
+.subtitle {
+  color: var(--text-light);
+  font-size: 1rem;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+/* ===== TABS ===== */
+.tabs {
+  display: flex;
+  background: var(--bg);
+  border-radius: var(--radius-full);
+  padding: 4px;
+  margin-bottom: 24px;
+  border: 2px solid var(--border);
+}
+
+.tab {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: transparent;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text-light);
+}
+
+.tabActive {
+  background: var(--green);
+  color: white;
+  box-shadow: 0 3px 0 var(--green-hover);
+}
+
+/* ===== FORM ===== */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+  padding-left: 4px;
+}
+
+.inputWrap {
+  display: flex;
+  align-items: center;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0 16px;
+  transition: border-color 0.2s;
+}
+
+.inputWrap:focus-within {
+  border-color: var(--green);
+  background: white;
+  box-shadow: 0 0 0 4px var(--green-light);
+}
+
+.inputIcon {
+  font-size: 1.1rem;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 14px 0;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  outline: none;
+}
+
+.input::placeholder {
+  color: #bbb;
+}
+
+.submitBtn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  background: var(--green);
+  color: white;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: 0 5px 0 var(--green-hover);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transform: translateY(0);
+}
+
+.submitBtn:hover {
+  background: var(--green-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 var(--green-hover);
+}
+
+.submitBtn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--green-hover);
+}
+
+/* ===== DIVIDER ===== */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: var(--text-light);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+}
+
+/* ===== SOCIAL ===== */
+.socialButtons {
+  display: flex;
+  gap: 12px;
+}
+
+.socialBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.socialBtn:hover {
+  border-color: var(--text-light);
+  background: var(--bg);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.socialBtn span {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+/* ===== SWITCH ===== */
+.switchText {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.switchLink {
+  background: none;
+  border: none;
+  color: var(--green);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.switchLink:hover {
+  color: var(--green-hover);
+}
+
+/* ===== FLOATING EMOJIS ===== */
+.floatingEmojis {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floatingEmojis span {
+  position: absolute;
+  font-size: 2rem;
+  animation: float 4s ease-in-out infinite;
+  opacity: 0.5;
+}
+
+.floatingEmojis span:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+.floatingEmojis span:nth-child(2) { top: 25%; right: 12%; animation-delay: 0.5s; font-size: 1.5rem; }
+.floatingEmojis span:nth-child(3) { bottom: 30%; left: 8%; animation-delay: 1s; }
+.floatingEmojis span:nth-child(4) { bottom: 20%; right: 15%; animation-delay: 1.5s; }
+.floatingEmojis span:nth-child(5) { top: 50%; left: 5%; animation-delay: 2s; font-size: 1.3rem; }
+.floatingEmojis span:nth-child(6) { top: 40%; right: 8%; animation-delay: 2.5s; font-size: 1.8rem; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .card {
+    padding: 28px 20px;
+  }
+}
