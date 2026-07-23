@@ -70,7 +70,7 @@
   background: var(--green) !important;
   color: white !important;
   font-weight: 600;
-  box-shadow: 0 4px 0 #46a302;
+  box-shadow: 0 4px 0 var(--green-hover);
   margin-left: 12px;
   transform: translateY(0);
 }
@@ -78,12 +78,12 @@
 .navCta:hover {
   background: var(--green-hover) !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 0 #46a302;
+  box-shadow: 0 6px 0 var(--green-hover);
 }
 
 .navCta:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #46a302;
+  box-shadow: 0 2px 0 var(--green-hover);
 }
 
 .hamburger {
