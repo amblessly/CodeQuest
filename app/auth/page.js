@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
+import { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { createClient } from "@/lib/supabase-browser";
 import { GameIcon } from "@/components/ui/Icons";
 import styles from "./page.module.css";
 
@@ -50,13 +50,46 @@ const EyeClosedIcon = () => (
   </svg>
 );
 
+const CheckCircleIcon = () => (
+  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+    <polyline points="22 4 12 14.01 9 11.01" />
+  </svg>
+);
+
+const MailSentIcon = () => (
+  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2" />
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    <path d="M16 21l3-3 3 3" />
+    <path d="M19 18v6" />
+  </svg>
+);
+
 export default function AuthPage() {
+  return (
+    <Suspense fallback={null}>
+      <AuthPageContent />
+    </Suspense>
+  );
+}
+
+function AuthPageContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [mode, setMode] = useState("signup");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPw, setShowPw] = useState(false);
   const [showConfirmPw, setShowConfirmPw] = useState(false);
+  const [verified, setVerified] = useState(false);
+  const [signedUpEmail, setSignedUpEmail] = useState("");
+
+  useEffect(() => {
+    if (searchParams.get("verified") === "1") {
+      setVerified(true);
+    }
+  }, [searchParams]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -75,37 +108,123 @@ export default function AuthPage() {
       return;
     }
 
+    const supabase = createClient();
+
     try {
       if (mode === "signup") {
-        const { error: signUpError } = await authClient.signUp.email({
+        const { data, error: signUpError } = await supabase.auth.signUp({
           email,
           password,
-          name: username,
-          username,
+          options: {
+            data: { username, display_name: username },
+            emailRedirectTo: `${window.location.origin}/auth/callback`,
+          },
         });
+
         if (signUpError) {
-          setError(signUpError.message || signUpError.code || "Something went wrong");
+          setError(signUpError.message || "Something went wrong");
           setLoading(false);
           return;
         }
-        setMode("login");
+
+        if (data?.user?.identities?.length === 0) {
+          setError("This email is already registered");
+          setLoading(false);
+          return;
+        }
+
+        setSignedUpEmail(email);
         setLoading(false);
       } else {
-        const { error: signInError } = await authClient.signIn.email({
+        const { error: signInError } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
+
         if (signInError) {
-          setError(signInError.message || signInError.code || "Invalid credentials");
+          setError(signInError.message || "Invalid credentials");
           setLoading(false);
           return;
         }
+
         router.push("/dashboard");
       }
     } catch (err) {
       setError(err.message || "Something went wrong");
       setLoading(false);
     }
+  }
+
+  if (signedUpEmail) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.bgCircle} style={{ width: 400, height: 400, top: "-10%", right: "-10%", opacity: 0.5 }} />
+        <div className={styles.bgCircle} style={{ width: 250, height: 250, bottom: "10%", left: "-8%", opacity: 0.35 }} />
+        <div className={styles.bgCircle} style={{ width: 180, height: 180, top: "40%", right: "15%", opacity: 0.25 }} />
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <span className={styles.logo}><GameIcon /></span>
+            <h1 className={styles.title}>CodeQuest</h1>
+          </div>
+          <div className={styles.verifyCard}>
+            <MailSentIcon />
+            <h2 className={styles.verifyTitle}>Verify Your Email</h2>
+            <p className={styles.verifyDesc}>
+              We sent a verification link to<br />
+              <strong>{signedUpEmail}</strong>
+            </p>
+            <p className={styles.verifyHint}>
+              Click the link in the email to activate your account, then sign in.
+            </p>
+            <a
+              href="https://mail.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.verifyBtn}
+            >
+              Open Gmail
+            </a>
+            <button
+              className={styles.switchLink}
+              onClick={() => { setSignedUpEmail(""); setMode("login"); }}
+              style={{ marginTop: 12, background: "none", border: "none", cursor: "pointer", fontSize: "0.9rem" }}
+            >
+              Back to Sign In
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (verified) {
+    return (
+      <div className={styles.page}>
+        <div className={styles.bgCircle} style={{ width: 400, height: 400, top: "-10%", right: "-10%", opacity: 0.5 }} />
+        <div className={styles.bgCircle} style={{ width: 250, height: 250, bottom: "10%", left: "-8%", opacity: 0.35 }} />
+        <div className={styles.bgCircle} style={{ width: 180, height: 180, top: "40%", right: "15%", opacity: 0.25 }} />
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <span className={styles.logo}><GameIcon /></span>
+            <h1 className={styles.title}>CodeQuest</h1>
+          </div>
+          <div className={styles.verifyCard}>
+            <CheckCircleIcon />
+            <h2 className={styles.verifyTitle}>Email Verified!</h2>
+            <p className={styles.verifyDesc}>
+              Your account is now active. You can sign in and start your quest!
+            </p>
+            <button
+              className={styles.verifyBtn}
+              onClick={() => { setVerified(false); setMode("login"); }}
+              style={{ border: "none", cursor: "pointer" }}
+            >
+              Sign In Now
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

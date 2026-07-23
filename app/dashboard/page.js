@@ -1,12 +1,10 @@
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { createClient } from "@/lib/supabase-server";
 import { redirect } from "next/navigation";
 import { GameIcon } from "@/components/ui/Icons";
 
 export default async function DashboardPage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const supabase = await createClient();
+  const { data: { session } } = await supabase.auth.getSession();
 
   if (!session) {
     redirect("/auth");
@@ -31,15 +29,15 @@ export default async function DashboardPage() {
       <div style={{ position: "absolute", width: 120, height: 120, borderRadius: "50%", background: "white", top: "50%", right: "10%", pointerEvents: "none", opacity: 0.3 }} />
       <span style={{ width: "64px", height: "64px", display: "inline-block" }}><GameIcon /></span>
       <h1 style={{ fontFamily: "'Fredoka', sans-serif", fontSize: "2rem" }}>
-        Welcome, {session.user.name || "Hero"}!
+        Welcome, {session.user.user_metadata?.display_name || session.user.email || "Hero"}!
       </h1>
       <p style={{ color: "#777" }}>Your coding adventure begins here.</p>
       <form
         action={async () => {
           "use server";
-          const { auth } = await import("@/lib/auth");
-          const { headers } = await import("next/headers");
-          await auth.api.signOut({ headers: await headers() });
+          const { createClient } = await import("@/lib/supabase-server");
+          const supabase = await createClient();
+          await supabase.auth.signOut();
           redirect("/");
         }}
       >

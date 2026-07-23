@@ -292,6 +292,54 @@
   color: var(--green-hover);
 }
 
+/* ===== VERIFY ===== */
+.verifyCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.verifyTitle {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.verifyDesc {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.verifyHint {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  opacity: 0.8;
+}
+
+.verifyBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--green);
+  color: white;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px 32px;
+  border-radius: var(--radius-full);
+  transition: background 0.2s;
+  text-decoration: none;
+}
+
+.verifyBtn:hover {
+  background: var(--green-hover);
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
   .card {
