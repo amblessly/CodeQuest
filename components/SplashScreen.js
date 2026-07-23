@@ -20,30 +20,30 @@ export default function SplashScreen() {
   useEffect(() => {
     if (typed < WORD.length) return
     const t1 = setTimeout(() => setPhase('expanding'), 700)
-    const t2 = setTimeout(() => setPhase('done'), 2700)
+    const t2 = setTimeout(() => setPhase('done'), 2100)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [typed])
 
   return (
     <div className={`${styles.splash} ${phase === 'done' ? styles.hidden : ''}`}>
-      <div className={styles.wordmark}>
-        {WORD.split('').map((char, i) => (
-          i === 1 ? (
-            <span key={i} className={styles.oWrap}>
-              <span
-                className={`${styles.oLetter} ${typed > i ? styles.bounceIn : ''} ${phase === 'expanding' ? styles.hideText : ''}`}
-              >
+      {phase !== 'expanding' && (
+        <div className={styles.wordmark}>
+          {WORD.split('').map((char, i) => (
+            i === 1 ? (
+              <span key={i} className={styles.oWrap}>
+                <span className={`${styles.oLetter} ${typed > i ? styles.bounceIn : ''}`}>
+                  {char}
+                </span>
+              </span>
+            ) : (
+              <span key={i} className={`${styles.char} ${typed > i ? styles.visible : ''}`}>
                 {char}
               </span>
-              <span className={`${styles.circle} ${phase === 'expanding' ? styles.grow : ''}`} />
-            </span>
-          ) : (
-            <span key={i} className={`${styles.char} ${typed > i ? styles.visible : ''} ${phase === 'expanding' ? styles.hideText : ''}`}>
-              {char}
-            </span>
-          )
-        ))}
-      </div>
+            )
+          ))}
+        </div>
+      )}
+      <div className={`${styles.circle} ${phase === 'expanding' ? styles.grow : ''}`} />
     </div>
   )
 }
