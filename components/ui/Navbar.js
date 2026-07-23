@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SwordIcon } from "@/components/ui/Icons";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
@@ -10,7 +11,7 @@ export default function Navbar() {
     <nav className={styles.nav}>
       <div className={`container ${styles.navInner}`}>
         <a href="/" className={styles.logo}>
-          <span className={styles.logoIcon}>⚔️</span>
+          <span className={styles.logoIcon}><SwordIcon /></span>
           <span className={styles.logoText}>CodeQuest</span>
         </a>
 

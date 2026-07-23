@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { SwordIcon } from "@/components/ui/Icons";
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({
@@ -23,7 +24,7 @@ export default async function DashboardPage() {
       background: "linear-gradient(180deg, #e5f5d1 0%, #f7f7f7 100%)",
       fontFamily: "'Nunito', sans-serif",
     }}>
-      <span style={{ fontSize: "4rem" }}>⚔️</span>
+      <span style={{ fontSize: "4rem" }}><SwordIcon /></span>
       <h1 style={{ fontFamily: "'Fredoka', sans-serif", fontSize: "2rem" }}>
         Welcome, {session.user.name || "Hero"}!
       </h1>

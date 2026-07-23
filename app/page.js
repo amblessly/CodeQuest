@@ -4,7 +4,7 @@ import {
   GameIcon, BookIcon, TargetIcon, MedalIcon, MapIcon,
   RocketIcon, SnakeIcon, GlobeIcon, DatabaseIcon, LightningIcon,
   LockIcon, RobotIcon, JoystickIcon, PencilIcon, PuzzleIcon,
-  TrophyIcon, LaptopIcon,
+  TrophyIcon, LaptopIcon, SwordIcon, StarIcon, LightbulbIcon, SparkleIcon,
 } from "@/components/ui/Icons";
 import styles from "./page.module.css";
 
@@ -65,15 +65,15 @@ function HeroSection() {
         </div>
         <div className={`${styles.heroVisual} animate-float`}>
           <div className={styles.heroArt}>
-            <span className={styles.heroEmoji}>⚔️</span>
+            <span className={styles.heroEmoji}><SwordIcon /></span>
             <div className={styles.codeBubble}>
               <span className={styles.codeLine} style={{ "--i": 1 }}>def hello():</span>
               <span className={styles.codeLine} style={{ "--i": 2 }}>&nbsp;&nbsp;print("CodeQuest!")</span>
-              <span className={styles.codeLine} style={{ "--i": 3 }}>🏆 → XP +100</span>
+              <span className={styles.codeLine} style={{ "--i": 3 }}><TrophyIcon /> → XP +100</span>
             </div>
-            <div className={styles.floatingBadge} style={{ top: "10%", right: "-10%" }}>✨</div>
-            <div className={styles.floatingBadge} style={{ bottom: "15%", left: "-8%" }}>💡</div>
-            <div className={styles.floatingBadge} style={{ top: "50%", left: "-12%" }}>⭐</div>
+            <div className={styles.floatingBadge} style={{ top: "10%", right: "-10%" }}><SparkleIcon /></div>
+            <div className={styles.floatingBadge} style={{ bottom: "15%", left: "-8%" }}><LightbulbIcon /></div>
+            <div className={styles.floatingBadge} style={{ top: "50%", left: "-12%" }}><StarIcon /></div>
           </div>
         </div>
       </div>
@@ -213,7 +213,7 @@ function Footer() {
     <footer className={styles.footer}>
       <div className={`container ${styles.footerInner}`}>
         <div className={styles.footerBrand}>
-          <span className={styles.footerLogo}>⚔️ CodeQuest</span>
+          <span className={styles.footerLogo}><SwordIcon /> CodeQuest</span>
           <p>Making coding fun, one quiz at a time.</p>
         </div>
         <div className={styles.footerLinks}>
