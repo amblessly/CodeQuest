@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   background: var(--green-light);
-  transition: opacity 0.4s ease 0.2s;
+  transition: opacity 0.1s ease;
   pointer-events: all;
 }
 
@@ -85,7 +85,7 @@
   transform: scale(1);
   z-index: 10;
   opacity: 0;
-  transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.01s;
+  transition: transform 2.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.01s;
 }
 
 .grow {
