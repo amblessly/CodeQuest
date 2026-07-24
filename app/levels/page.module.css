@@ -5,31 +5,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-}
-
-.bgWrap {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.bgSvg {
-  width: 100%;
-  height: 100%;
-  display: block;
 }
 
 .header {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background: white;
+  border-bottom: 2px solid #eee;
   padding: 10px 20px 12px;
   width: 100%;
 }
@@ -87,7 +70,7 @@
 .track {
   flex: 1;
   height: 6px;
-  background: rgba(0, 0, 0, 0.06);
+  background: #f0f0f0;
   border-radius: 999px;
   overflow: hidden;
 }
@@ -107,8 +90,6 @@
 }
 
 .map {
-  position: relative;
-  z-index: 1;
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
@@ -123,17 +104,19 @@
 
 .hex {
   transition: all 0.25s ease;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.10));
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.10));
 }
 
 .hex:hover {
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
 }
 
 .hexGlow {
-  filter: drop-shadow(0 0 12px rgba(88, 204, 2, 0.5)) drop-shadow(0 0 24px rgba(88, 204, 2, 0.25));
+  filter: drop-shadow(0 0 12px rgba(88,204,2,0.5)) drop-shadow(0 0 24px rgba(88,204,2,0.25));
 }
 
 .hexLock {
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.05));
 }
+
+
