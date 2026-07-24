@@ -212,7 +212,7 @@ export default function OnboardingPage() {
           <button
             className={styles.continueBtn}
             onClick={handleContinue}
-            disabled={loading || !getSelected(step, selected)}
+            disabled={loading || (step < 4 && !getSelected(step, selected))}
           >
             {loading ? "Loading..." : step === steps.length - 1 ? "Begin My Journey →" : "Continue →"}
           </button>
