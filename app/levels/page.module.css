@@ -1,7 +1,10 @@
 .page {
   min-height: 100vh;
   background: linear-gradient(180deg, #F0FDE6 0%, #FFFFFF 40%);
-  padding: 0 0 80px;
+  padding: 0 0 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header {
@@ -10,7 +13,8 @@
   z-index: 10;
   background: white;
   border-bottom: 2px solid var(--border);
-  padding: 12px 20px 12px;
+  padding: 12px 20px;
+  width: 100%;
 }
 
 .headerTop {
@@ -38,10 +42,6 @@
   display: flex;
   align-items: center;
   gap: 4px;
-}
-
-.statIcon {
-  display: flex;
 }
 
 .statValue {
@@ -89,7 +89,7 @@
   height: 100%;
   background: linear-gradient(90deg, var(--green), #89E219);
   border-radius: var(--radius-full);
-  transition: width 0.5s ease;
+  transition: width 0.5s;
 }
 
 .levelProgressText {
@@ -99,39 +99,33 @@
   white-space: nowrap;
 }
 
-/* Path */
-.path {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  padding: 24px 20px 40px;
-  max-width: 360px;
+/* === ZIGZAG MAP === */
+.mapWrap {
+  padding: 32px 20px;
+  max-width: 400px;
+  width: 100%;
   margin: 0 auto;
+  flex: 1;
 }
 
-.nodeWrapper {
+.map {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.nodeWrap {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-}
-
-.connector {
-  width: 4px;
-  height: 32px;
-  background: var(--border);
-  border-radius: 2px;
-  transition: background 0.3s;
-}
-
-.connectorActive {
-  background: var(--green);
+  padding: 12px 0;
 }
 
 .node {
-  width: 60px;
-  height: 60px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   border: 3px solid var(--border);
   background: white;
@@ -142,21 +136,22 @@
   transition: all 0.2s;
   font-family: 'Fredoka', sans-serif;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--text);
-  position: relative;
   box-shadow: var(--shadow-sm);
+  z-index: 2;
+  position: relative;
 }
 
 .node:hover:not(:disabled) {
-  transform: scale(1.1);
+  transform: scale(1.15);
   box-shadow: var(--shadow);
 }
 
 .nodeCompleted {
   background: var(--green);
   border-color: var(--green);
-  box-shadow: 0 4px 12px rgba(88,204,2,0.3);
+  box-shadow: 0 4px 12px rgba(88,204,2,0.35);
 }
 
 .nodeCurrent {
@@ -170,7 +165,7 @@
   background: var(--bg-card);
   border-color: var(--border);
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
 .nodeLocked svg {
@@ -179,25 +174,98 @@
 
 .nodeNum {
   color: var(--green);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
-.currentLabel {
+.youAreHere {
   font-family: 'Fredoka', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.55rem;
   font-weight: 700;
   color: var(--green);
   margin-top: 4px;
   letter-spacing: 1px;
+  white-space: nowrap;
+  z-index: 2;
 }
 
-@media (max-width: 480px) {
+/* Connectors */
+.connectorV {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 24px;
+  background: var(--border);
+  border-radius: 2px;
+  z-index: 1;
+}
+
+.connectorH {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  align-self: center;
+  z-index: 1;
+  margin-top: 26px;
+}
+
+.connectorVLong {
+  width: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  justify-self: center;
+  z-index: 1;
+  margin-top: 0;
+}
+
+.connectorActive {
+  background: var(--green);
+}
+
+/* Footer stats */
+.footer {
+  display: flex;
+  gap: 48px;
+  padding: 20px 40px;
+  background: white;
+  border-top: 2px solid var(--border);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  width: 100%;
+  max-width: 400px;
+  justify-content: center;
+}
+
+.footerStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.footerStatValue {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.footerStatLabel {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+@media (max-width: 420px) {
   .node {
-    width: 52px;
-    height: 52px;
-    font-size: 0.95rem;
+    width: 44px;
+    height: 44px;
+    font-size: 0.85rem;
   }
-  .connector {
-    height: 24px;
+  .connectorV {
+    height: 16px;
+  }
+  .connectorH {
+    margin-top: 22px;
   }
 }

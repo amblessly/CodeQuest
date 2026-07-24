@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase-browser";
 import styles from "./page.module.css";
 
 const totalLevels = 20;
+const cols = 5;
 
 export default function LevelsPage() {
   const router = useRouter();
@@ -27,6 +28,37 @@ export default function LevelsPage() {
   }, [router]);
 
   if (!session) return null;
+
+  function getGridPos(level) {
+    const i = level - 1;
+    const row = Math.floor(i / cols);
+    const col = row % 2 === 0 ? i % cols : cols - 1 - (i % cols);
+    return { row, col };
+  }
+
+  function hasConnectorRight(level) {
+    const i = level - 1;
+    const row = Math.floor(i / cols);
+    const col = i % cols;
+    if (level === totalLevels) return false;
+    if (row % 2 === 0) return col < cols - 1;
+    return col > 0;
+  }
+
+  function getConnectorType(level) {
+    const i = level - 1;
+    const row = Math.floor(i / cols);
+    const col = i % cols;
+    const nextRow = Math.floor(i / cols);
+    const nextCol = col + 1;
+
+    if (hasConnectorRight(level)) {
+      const isLastInRow = row % 2 === 0 ? col === cols - 1 : col === 0;
+      if (isLastInRow) return null;
+      return "horizontal";
+    }
+    return null;
+  }
 
   return (
     <div className={styles.page}>
@@ -59,38 +91,109 @@ export default function LevelsPage() {
         </div>
       </header>
 
-      <div className={styles.path}>
-        {Array.from({ length: totalLevels }, (_, i) => {
-          const level = i + 1;
-          const unlocked = level <= currentLevel + 1;
-          const completed = level < currentLevel;
-          const isCurrent = level === currentLevel;
+      <div className={styles.mapWrap}>
+        <div className={styles.map}>
+          {Array.from({ length: totalLevels }, (_, i) => {
+            const level = i + 1;
+            const pos = getGridPos(level);
+            const unlocked = level <= currentLevel + 1;
+            const completed = level < currentLevel;
+            const isCurrent = level === currentLevel;
 
-          return (
-            <div key={level} className={styles.nodeWrapper}>
-              {i > 0 && (
-                <div className={`${styles.connector} ${completed || isCurrent ? styles.connectorActive : ""}`} />
-              )}
-              <button
-                className={`${styles.node}
-                  ${completed ? styles.nodeCompleted : ""}
-                  ${isCurrent ? styles.nodeCurrent : ""}
-                  ${!unlocked ? styles.nodeLocked : ""}`}
-                disabled={!unlocked}
-                onClick={() => unlocked && router.push(`/level/${level}`)}
+            const isLastInRow = (pos.row % 2 === 0 && pos.col === cols - 1) || (pos.row % 2 === 1 && pos.col === 0);
+            const isLastLevel = level === totalLevels;
+
+            return (
+              <div
+                key={level}
+                className={styles.nodeWrap}
+                style={{ gridRow: pos.row + 1, gridColumn: pos.col + 1 }}
               >
-                {completed ? (
-                  <CheckIcon />
-                ) : isCurrent ? (
-                  <span className={styles.nodeNum}>{level}</span>
-                ) : (
-                  <LockIcon />
+                {(i > 0 && pos.col === (pos.row % 2 === 0 ? 0 : cols - 1)) && (
+                  <div className={`${styles.connectorV} ${completed || isCurrent ? styles.connectorActive : ""}`} />
                 )}
-              </button>
-              {isCurrent && <div className={styles.currentLabel}>START</div>}
-            </div>
-          );
-        })}
+                <button
+                  className={`${styles.node}
+                    ${completed ? styles.nodeCompleted : ""}
+                    ${isCurrent ? styles.nodeCurrent : ""}
+                    ${!unlocked ? styles.nodeLocked : ""}`}
+                  disabled={!unlocked}
+                  onClick={() => unlocked && router.push(`/level/${level}`)}
+                >
+                  {completed ? (
+                    <CheckIcon />
+                  ) : isCurrent ? (
+                    <span className={styles.nodeNum}>{level}</span>
+                  ) : (
+                    <LockIcon />
+                  )}
+                </button>
+                {isCurrent && <span className={styles.youAreHere}>YOU ARE HERE</span>}
+              </div>
+            );
+          })}
+
+          {Array.from({ length: totalLevels }, (_, i) => {
+            const level = i + 1;
+            const pos = getGridPos(level);
+            if (level === totalLevels) return null;
+            const nextPos = getGridPos(level + 1);
+            const completed = level < currentLevel;
+            const isCurrent = level === currentLevel;
+
+            if (pos.row === nextPos.row) {
+              const dir = pos.row % 2 === 0 ? 1 : -1;
+              return (
+                <div
+                  key={`h-${level}`}
+                  className={`${styles.connectorH} ${completed || isCurrent ? styles.connectorActive : ""}`}
+                  style={{
+                    gridRow: pos.row + 1,
+                    gridColumn: dir === 1 ? pos.col + 1 : nextPos.col + 1,
+                  }}
+                />
+              );
+            }
+            return null;
+          })}
+
+          {Array.from({ length: totalLevels }, (_, i) => {
+            const level = i + 1;
+            const pos = getGridPos(level);
+            if (level === totalLevels) return null;
+            const nextPos = getGridPos(level + 1);
+
+            if (pos.row !== nextPos.row) {
+              const edgeCol = pos.row % 2 === 0 ? cols : 1;
+              const completed = level < currentLevel;
+              const isCurrent = level === currentLevel;
+
+              return (
+                <div
+                  key={`v-${level}`}
+                  className={`${styles.connectorVLong} ${completed || isCurrent ? styles.connectorActive : ""}`}
+                  style={{
+                    gridRowStart: pos.row + 1,
+                    gridRowEnd: nextPos.row + 2,
+                    gridColumn: edgeCol,
+                  }}
+                />
+              );
+            }
+            return null;
+          })}
+        </div>
+      </div>
+
+      <div className={styles.footer}>
+        <div className={styles.footerStat}>
+          <span className={styles.footerStatValue}>{currentLevel - 1}</span>
+          <span className={styles.footerStatLabel}>Completed</span>
+        </div>
+        <div className={styles.footerStat}>
+          <span className={styles.footerStatValue}>{totalLevels - currentLevel + 1}</span>
+          <span className={styles.footerStatLabel}>Remaining</span>
+        </div>
       </div>
     </div>
   );
