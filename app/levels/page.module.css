@@ -95,8 +95,8 @@
   flex-direction: column;
   align-items: center;
   gap: 0;
-  padding: 24px 16px 0;
-  max-width: 340px;
+  padding: 16px 8px 0;
+  max-width: 360px;
   width: 100%;
   margin: 0 auto;
 }
@@ -111,126 +111,51 @@
 
 .left {
   align-items: flex-start;
-  padding-left: 18px;
+  padding-left: 8px;
 }
 
 .right {
   align-items: flex-end;
-  padding-right: 18px;
+  padding-right: 8px;
 }
 
-.line {
+.group {
   width: 100%;
-  height: 48px;
-  pointer-events: none;
-  position: relative;
-  z-index: 0;
+  max-width: 200px;
+  height: auto;
   display: block;
+  overflow: visible;
 }
 
-.pathLine {
+.tunnel {
   stroke: #ddd;
   transition: stroke 0.3s;
 }
 
-.pathOn {
+.tunnelOn {
   stroke: #58CC02;
 }
 
-/* Heptagon node */
-.node {
-  position: relative;
-  width: 68px;
-  height: 68px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  flex-shrink: 0;
-}
-
-.node:hover:not(:disabled) {
-  filter: brightness(0.95);
-  transform: scale(1.08);
-}
-
-.hept {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.content {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 700;
-  font-size: 1.15rem;
-  color: #2b2b2b;
-}
-
-.done .content {
-  color: white;
-}
-
-.now .content {
-  color: #58CC02;
-}
-
-.locked {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.locked:hover {
-  filter: none !important;
-  transform: none !important;
-}
-
-.now {
-  filter: drop-shadow(0 0 10px rgba(88,204,2,0.3));
-  animation: pulse 2s ease-in-out infinite;
+.heptGlow {
+  filter: drop-shadow(0 0 8px rgba(88,204,2,0.35));
 }
 
 .flag {
-  position: absolute;
   font-family: 'Fredoka', sans-serif;
-  font-size: 0.48rem;
+  font-size: 0.5rem;
   font-weight: 700;
   color: #58CC02;
   letter-spacing: 1.5px;
   white-space: nowrap;
-  top: calc(68px + 6px);
-}
-
-.left .flag {
-  left: calc(18px + 68px + 6px);
-}
-
-.right .flag {
-  right: calc(18px + 68px + 6px);
+  margin-top: 2px;
 }
 
 .crown {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px 0 8px;
+  padding: 12px 0 8px;
   animation: bounce 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.06); }
 }
 
 @keyframes bounce {

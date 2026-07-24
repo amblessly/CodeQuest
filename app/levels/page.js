@@ -6,9 +6,16 @@ import { createClient } from "@/lib/supabase-browser";
 import styles from "./page.module.css";
 
 const totalLevels = 20;
-
-// Heptagon points for a 7-sided polygon (centered, radius ~50)
-const H = "50,2 88,20 99,59 76,93 24,93 1,59 12,20";
+const R = 38;
+const cx = 80, cy = 90;
+const H = (() => {
+  let pts = [];
+  for (let i = 0; i < 7; i++) {
+    const a = (Math.PI * 2 * i) / 7 - Math.PI / 2;
+    pts.push(`${cx + R * Math.cos(a)},${cy + R * Math.sin(a)}`);
+  }
+  return pts.join(" ");
+})();
 
 export default function LevelsPage() {
   const router = useRouter();
@@ -58,39 +65,48 @@ export default function LevelsPage() {
           const unlocked = level <= currentLevel + 1;
           const done = level < currentLevel;
           const now = level === currentLevel;
+          const active = i <= currentLevel;
+
+          const prevHept = getHeptEdge(isLeft ? "bottom-right" : "bottom-left");
+          const currHept = getHeptEdge(isLeft ? "top-left" : "top-right");
 
           return (
             <div key={level} className={`${styles.step} ${isLeft ? styles.left : styles.right}`}>
-              {i > 0 && (
-                <svg className={styles.line} viewBox="0 0 100 50" preserveAspectRatio="none">
+              <svg className={styles.group} viewBox="0 0 160 145" preserveAspectRatio="xMidYMax meet">
+                {i > 0 && (
                   <line
-                    x1={isLeft ? "72" : "28"}
+                    x1={prevHept.x}
                     y1="0"
-                    x2={isLeft ? "28" : "72"}
-                    y2="50"
-                    strokeWidth="4"
+                    x2={currHept.x}
+                    y2={currHept.y}
+                    strokeWidth="5"
                     strokeLinecap="round"
-                    className={`${styles.pathLine} ${i <= currentLevel ? styles.pathOn : ""}`}
+                    className={`${styles.tunnel} ${active ? styles.tunnelOn : ""}`}
                   />
-                </svg>
-              )}
-              <button
-                className={`${styles.node} ${done ? styles.done : ""} ${now ? styles.now : ""} ${!unlocked ? styles.locked : ""}`}
-                disabled={!unlocked}
-                onClick={() => unlocked && router.push(`/level/${level}`)}
-              >
-                <svg className={styles.hept} viewBox="0 0 100 100" preserveAspectRatio="none">
-                  <polygon
-                    points={H}
-                    fill={done ? "#58CC02" : now ? "white" : !unlocked ? "#f5f5f5" : "white"}
-                    stroke={done ? "#58CC02" : now ? "#58CC02" : !unlocked ? "#ddd" : "#ddd"}
-                    strokeWidth={done ? "6" : now ? "6" : "6"}
-                  />
-                </svg>
-                <span className={styles.content}>
-                  {done ? <CheckIcon /> : now ? level : <LockIcon />}
-                </span>
-              </button>
+                )}
+                <polygon
+                  points={H}
+                  fill={done ? "#58CC02" : now ? "white" : !unlocked ? "#f5f5f5" : "white"}
+                  stroke={done ? "#58CC02" : now ? "#58CC02" : !unlocked ? "#ddd" : "#ddd"}
+                  strokeWidth="6"
+                  strokeLinejoin="round"
+                  className={now ? styles.heptGlow : ""}
+                />
+                {done && (
+                  <g transform={`translate(${cx},${cy})`}>
+                    <polyline points="-12,-4 -4,4 12,-10" fill="none" stroke="white" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+                  </g>
+                )}
+                {now && (
+                  <text x={cx} y={cy + 6} textAnchor="middle" fill="#58CC02" fontFamily="Fredoka, sans-serif" fontSize={R > 35 ? 24 : 20} fontWeight="700">{level}</text>
+                )}
+                {!unlocked && !done && (
+                  <g transform={`translate(${cx},${cy})`}>
+                    <rect x="-8" y="-5" width="16" height="11" rx="2" fill="none" stroke="#bbb" strokeWidth="2.5" />
+                    <path d="M-4-5V-8a4 4 0 0 1 8 0v3" fill="none" stroke="#bbb" strokeWidth="2.5" strokeLinecap="round" />
+                  </g>
+                )}
+              </svg>
               {now && <span className={styles.flag}>QUEST</span>}
             </div>
           );
@@ -103,21 +119,16 @@ export default function LevelsPage() {
   );
 }
 
-function CheckIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  );
-}
-
-function LockIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-    </svg>
-  );
+function getHeptEdge(pos) {
+  const edges = {
+    "top": { x: cx, y: cy - R },
+    "bottom": { x: cx, y: cy + R },
+    "top-right": { x: cx + R * Math.cos(-Math.PI / 2 + (Math.PI * 2) / 7), y: cy + R * Math.sin(-Math.PI / 2 + (Math.PI * 2) / 7) },
+    "top-left": { x: cx + R * Math.cos(-Math.PI / 2 - (Math.PI * 2) / 7), y: cy + R * Math.sin(-Math.PI / 2 - (Math.PI * 2) / 7) },
+    "bottom-right": { x: cx + R * Math.cos(Math.PI / 2 - (Math.PI * 2) / 7 * 2), y: cy + R * Math.sin(Math.PI / 2 - (Math.PI * 2) / 7 * 2) },
+    "bottom-left": { x: cx + R * Math.cos(Math.PI / 2 + (Math.PI * 2) / 7 * 2), y: cy + R * Math.sin(Math.PI / 2 + (Math.PI * 2) / 7 * 2) },
+  };
+  return edges[pos] || edges.top;
 }
 
 function StreakIcon() {
