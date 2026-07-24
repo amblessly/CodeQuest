@@ -56,74 +56,70 @@ export default function SettingsPage() {
         <span />
       </div>
 
-      {/* ── App Settings ── */}
-      <SectionTitle text="App Settings" />
-      <div className={styles.card}>
-        <ToggleRow label="Sound Effects" checked={soundOn} onChange={setSoundOn} />
-        <div className={styles.divider} />
-        <ToggleRow label="Notifications" checked={notifOn} onChange={setNotifOn} />
-      </div>
+      <div className={styles.body}>
+        <SectionTitle text="App Settings" />
+        <div className={styles.card}>
+          <ToggleRow label="Sound Effects" checked={soundOn} onChange={setSoundOn} />
+          <div className={styles.divider} />
+          <ToggleRow label="Notifications" checked={notifOn} onChange={setNotifOn} />
+        </div>
 
-      {/* ── Account ── */}
-      <SectionTitle text="Account" />
-      <div className={styles.card}>
-        <div className={styles.row}>
-          <span className={styles.label}>Display Name</span>
-          <div className={styles.inputWrap}>
-            <input className={styles.input} value={displayName} onChange={(e) => setDisplayName(e.target.value)} onBlur={handleSaveDisplayName} />
+        <SectionTitle text="Account" />
+        <div className={styles.card}>
+          <div className={styles.row}>
+            <span className={styles.label}>Display Name</span>
+            <div className={styles.inputWrap}>
+              <input className={styles.input} value={displayName} onChange={(e) => setDisplayName(e.target.value)} onBlur={handleSaveDisplayName} />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* ── Preferences ── */}
-      <SectionTitle text="Preferences" />
-      <div className={styles.card}>
-        <PrefRow label="Language" value={meta.language || "Security"} />
-        <div className={styles.divider} />
-        <PrefRow label="Experience" value={meta.experience || "Expert"} />
-        <div className={styles.divider} />
-        <PrefRow label="Goal" value={meta.goal || "Other"} />
-        <div className={styles.divider} />
-        <PrefRow label="Daily Target" value={meta.daily_target ? `${meta.daily_target} min` : "10 min"} />
-      </div>
-
-      {/* ── Support ── */}
-      <SectionTitle text="Support" />
-      <div className={styles.card}>
-        <button className={styles.option} onClick={() => window.open("mailto:support@codequest.app")}>
-          <span className={styles.optionText}>Contact Us</span>
-          <span className={styles.chevron}>&rarr;</span>
-        </button>
-      </div>
-
-      {/* ── About ── */}
-      <SectionTitle text="About" />
-      <div className={styles.card}>
-        <button className={styles.option}>
-          <span className={styles.optionText}>Terms of Use</span>
-          <span className={styles.chevron}>&rarr;</span>
-        </button>
-        <div className={styles.divider} />
-        <button className={styles.option}>
-          <span className={styles.optionText}>Privacy Policy</span>
-          <span className={styles.chevron}>&rarr;</span>
-        </button>
-        <div className={styles.divider} />
-        <div className={styles.row}>
-          <span className={styles.label}>Version</span>
-          <span className={styles.value}>1.0.0</span>
+        <SectionTitle text="Preferences" />
+        <div className={styles.card}>
+          <PrefRow label="Language" value={meta.language || "Security"} />
+          <div className={styles.divider} />
+          <PrefRow label="Experience" value={meta.experience || "Expert"} />
+          <div className={styles.divider} />
+          <PrefRow label="Goal" value={meta.goal || "Other"} />
+          <div className={styles.divider} />
+          <PrefRow label="Daily Target" value={meta.daily_target ? `${meta.daily_target} min` : "10 min"} />
         </div>
-      </div>
 
-      {/* ── Log Out ── */}
-      <button className={styles.logoutBtn} onClick={handleLogout}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-          <polyline points="16 17 21 12 16 7" />
-          <line x1="21" y1="12" x2="9" y2="12" />
-        </svg>
-        Log Out
-      </button>
+        <SectionTitle text="Support" />
+        <div className={styles.card}>
+          <button className={styles.option} onClick={() => window.open("mailto:support@codequest.app")}>
+            <span className={styles.optionText}>Contact Us</span>
+            <span className={styles.chevron}>&rarr;</span>
+          </button>
+        </div>
+
+        <SectionTitle text="About" />
+        <div className={styles.card}>
+          <button className={styles.option}>
+            <span className={styles.optionText}>Terms of Use</span>
+            <span className={styles.chevron}>&rarr;</span>
+          </button>
+          <div className={styles.divider} />
+          <button className={styles.option}>
+            <span className={styles.optionText}>Privacy Policy</span>
+            <span className={styles.chevron}>&rarr;</span>
+          </button>
+          <div className={styles.divider} />
+          <div className={styles.row}>
+            <span className={styles.label}>Version</span>
+            <span className={styles.value}>1.0.0</span>
+          </div>
+        </div>
+
+        <button className={styles.logoutBtn} onClick={handleLogout}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
+          </svg>
+          Log Out
+        </button>
+      </div>
     </div>
   );
 }

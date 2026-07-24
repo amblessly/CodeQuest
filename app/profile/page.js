@@ -52,7 +52,7 @@ export default function ProfilePage() {
 
       <div className={styles.statsRow}>
         <div className={styles.statCard}>
-          <FireIcon />
+          <StreakIcon />
           <span className={styles.statValue}>{streak}</span>
           <span className={styles.statLabel}>Day Streak</span>
         </div>
@@ -62,7 +62,7 @@ export default function ProfilePage() {
           <span className={styles.statLabel}>Total XP</span>
         </div>
         <div className={styles.statCard}>
-          <RankIcon rank={rank} />
+          <StarIcon />
           <span className={styles.statValue}>{rank}</span>
           <span className={styles.statLabel}>Rank</span>
         </div>
@@ -71,15 +71,26 @@ export default function ProfilePage() {
   );
 }
 
-function FireIcon() {
-  return <svg width="20" height="20" viewBox="0 0 24 24" fill="#FF9600" stroke="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>;
+function StreakIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+    </svg>
+  );
 }
 
 function XPIcon() {
-  return <svg width="20" height="20" viewBox="0 0 24 24" fill="#CE82FF" stroke="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>;
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  );
 }
 
-function RankIcon({ rank }) {
-  const color = rank === "Bronze" ? "#CD7F32" : rank === "Silver" ? "#C0C0C0" : rank === "Gold" ? "#FFD700" : "#999";
-  return <svg width="20" height="20" viewBox="0 0 24 24" fill={color} stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>;
+function StarIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  );
 }
