@@ -42,15 +42,6 @@
   width: 100%;
 }
 
-.avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #58CC02;
-  margin-bottom: 12px;
-}
-
 .avatarCircle {
   width: 80px;
   height: 80px;

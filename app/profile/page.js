@@ -28,7 +28,6 @@ export default function ProfilePage() {
   const meta = user?.user_metadata || {};
   const displayName = meta.display_name || meta.full_name || meta.name || user?.email?.split("@")[0] || "User";
   const initial = displayName.charAt(0).toUpperCase();
-  const avatar = meta.avatar_url || null;
   const xp = meta.xp || 2840;
   const streak = meta.streak || 7;
   const rank = meta.rank || "Bronze";
@@ -46,11 +45,7 @@ export default function ProfilePage() {
       </div>
 
       <div className={styles.profileHead}>
-        {avatar ? (
-          <img src={avatar} alt="" className={styles.avatar} />
-        ) : (
-          <div className={styles.avatarCircle}>{initial}</div>
-        )}
+        <div className={styles.avatarCircle}>{initial}</div>
         <h1 className={styles.name}>{displayName}</h1>
         <p className={styles.email}>{user?.email}</p>
       </div>
