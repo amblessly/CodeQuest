@@ -76,9 +76,8 @@ export default function InstallPrompt() {
           <strong className={styles.title}>Install CodeQuest</strong>
           {isIOS ? (
             <span className={styles.iosSteps}>
-              <span>1. Tap <ShareIcon /> in Safari</span>
-              <span>2. Scroll down → "Add to Home Screen"</span>
-              <span>3. Tap "Add"</span>
+              <span>1. Tap <ShareIcon /> → "Add to Home Screen"</span>
+              <span>2. Tap "Add" (top right)</span>
             </span>
           ) : (
             <span className={styles.sub}>
