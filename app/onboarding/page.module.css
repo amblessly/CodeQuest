@@ -386,6 +386,7 @@
 }
 
 @media (max-width: 480px) {
+  .page { min-height: auto; }
   .card {
     padding: 24px 16px 20px;
   }

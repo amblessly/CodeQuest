@@ -196,3 +196,7 @@
   background: #FF4B4B;
   color: white;
 }
+
+@media (max-width: 480px) {
+  .page { min-height: auto; }
+}
