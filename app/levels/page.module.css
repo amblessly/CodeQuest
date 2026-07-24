@@ -1,212 +1,203 @@
 .page {
   min-height: 100vh;
-  padding: 40px 20px 60px;
-  background: white;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.bgCircle {
-  position: fixed;
-  border-radius: 50%;
-  background: var(--green-light);
-  pointer-events: none;
-  z-index: -1;
+  background: linear-gradient(180deg, #F0FDE6 0%, #FFFFFF 40%);
+  padding: 0 0 80px;
 }
 
 .header {
-  text-align: center;
-  margin-bottom: 40px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: white;
+  border-bottom: 2px solid var(--border);
+  padding: 12px 20px 12px;
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .title {
   font-family: 'Fredoka', sans-serif;
-  font-size: 2rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.title svg {
-  width: 32px;
-  height: 32px;
-  color: var(--green);
-}
-
-.subtitle {
-  color: var(--text-light);
-  font-size: 0.95rem;
-  margin-top: 4px;
-}
-
-.mapContainer {
-  position: relative;
-  padding: 20px;
-  background: var(--green-light);
-  border: 2px solid var(--green);
-  border-radius: var(--radius-lg);
-  max-width: 600px;
-  width: 100%;
-}
-
-.map {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 8px;
-  position: relative;
-}
-
-.levelNode {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  position: relative;
-}
-
-.nodeBtn {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  border: 3px solid var(--green);
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-  z-index: 2;
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--text);
-}
-
-.nodeBtn:hover:not(:disabled) {
-  transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(197, 179, 211, 0.4);
-}
-
-.completed {
-  background: var(--green);
-  border-color: var(--green);
-}
-
-.completed svg {
-  color: white;
-  width: 24px;
-  height: 24px;
-}
-
-.current {
-  background: var(--green);
-  border-color: var(--green);
-  color: white;
-  box-shadow: 0 0 0 6px rgba(197, 179, 211, 0.3);
-}
-
-.locked {
-  background: #e8e8e8;
-  border-color: #ccc;
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.locked svg {
-  color: #999;
-  width: 20px;
-  height: 20px;
-}
-
-.nodeIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nodeLabel {
-  font-size: 0.72rem;
-  color: var(--text-light);
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.nodeLabelActive {
-  color: var(--text);
-}
-
-.pathLine {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.pathActive {
-  background: var(--green);
-  opacity: 0.3;
-  border-radius: 2px;
-}
-
-.nodeLevel {
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 700;
-  font-size: 1.1rem;
   color: var(--text);
 }
 
 .stats {
   display: flex;
-  gap: 40px;
-  margin-top: 32px;
-  padding: 20px 40px;
-  background: var(--green-light);
-  border: 2px solid var(--green);
-  border-radius: var(--radius-lg);
+  gap: 16px;
+  align-items: center;
 }
 
 .stat {
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 4px;
 }
 
-.statNumber {
+.statIcon {
+  display: flex;
+}
+
+.statValue {
   font-family: 'Fredoka', sans-serif;
-  font-size: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.levelInfo {
+  max-width: 500px;
+  margin: 10px auto 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.levelBadge {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: white;
+  background: var(--green);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.levelProgress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.levelProgressTrack {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-card);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.levelProgressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), #89E219);
+  border-radius: var(--radius-full);
+  transition: width 0.5s ease;
+}
+
+.levelProgressText {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Path */
+.path {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 24px 20px 40px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.nodeWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.connector {
+  width: 4px;
+  height: 32px;
+  background: var(--border);
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+
+.connectorActive {
+  background: var(--green);
+}
+
+.node {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+
+.node:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: var(--shadow);
+}
+
+.nodeCompleted {
+  background: var(--green);
+  border-color: var(--green);
+  box-shadow: 0 4px 12px rgba(88,204,2,0.3);
+}
+
+.nodeCurrent {
+  border-color: var(--green);
+  background: white;
+  box-shadow: 0 0 0 4px var(--green-bg), var(--shadow-sm);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.nodeLocked {
+  background: var(--bg-card);
+  border-color: var(--border);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.nodeLocked svg {
+  color: var(--text-muted);
+}
+
+.nodeNum {
+  color: var(--green);
+  font-size: 1.2rem;
+}
+
+.currentLabel {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.65rem;
   font-weight: 700;
   color: var(--green);
-}
-
-.statNumber svg {
-  width: 24px;
-  height: 24px;
-  color: var(--green);
-}
-
-.statLabel {
-  font-size: 0.82rem;
-  color: var(--text-light);
+  margin-top: 4px;
+  letter-spacing: 1px;
 }
 
 @media (max-width: 480px) {
-  .nodeBtn {
-    width: 46px;
-    height: 46px;
+  .node {
+    width: 52px;
+    height: 52px;
     font-size: 0.95rem;
   }
-  .stats {
-    gap: 20px;
-    padding: 16px 24px;
+  .connector {
+    height: 24px;
   }
 }

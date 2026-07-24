@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase-browser";
-import { MapIcon, LockIcon, TrophyIcon, StarIcon } from "@/components/ui/Icons";
 import styles from "./page.module.css";
 
 const totalLevels = 20;
@@ -29,86 +28,111 @@ export default function LevelsPage() {
 
   if (!session) return null;
 
-  const levels = Array.from({ length: totalLevels }, (_, i) => i + 1);
-
-  function getLevelPosition(index) {
-    const row = Math.floor(index / 5);
-    const col = index % 5;
-    return {
-      x: row % 2 === 0 ? col : 4 - col,
-      y: row,
-    };
-  }
-
   return (
     <div className={styles.page}>
-      <div className={styles.bgCircle} style={{ width: 400, height: 400, top: "-10%", right: "-10%", opacity: 0.4 }} />
-      <div className={styles.bgCircle} style={{ width: 300, height: 300, bottom: "10%", left: "-8%", opacity: 0.3 }} />
+      <header className={styles.header}>
+        <div className={styles.headerTop}>
+          <h1 className={styles.title}>CodeQuest</h1>
+          <div className={styles.stats}>
+            <div className={styles.stat}>
+              <span className={styles.statIcon}><StreakIcon /></span>
+              <span className={styles.statValue}>0</span>
+            </div>
+            <div className={styles.stat}>
+              <span className={styles.statIcon}><GemIcon /></span>
+              <span className={styles.statValue}>0</span>
+            </div>
+            <div className={styles.stat}>
+              <span className={styles.statIcon}><HeartIcon /></span>
+              <span className={styles.statValue}>5</span>
+            </div>
+          </div>
+        </div>
+        <div className={styles.levelInfo}>
+          <span className={styles.levelBadge}>Level {currentLevel}</span>
+          <div className={styles.levelProgress}>
+            <div className={styles.levelProgressTrack}>
+              <div className={styles.levelProgressFill} style={{ width: `${((currentLevel - 1) / totalLevels) * 100}%` }} />
+            </div>
+            <span className={styles.levelProgressText}>{currentLevel - 1}/{totalLevels}</span>
+          </div>
+        </div>
+      </header>
 
-      <div className={styles.header}>
-        <h1 className={styles.title}>
-          <MapIcon /> Level Map
-        </h1>
-        <p className={styles.subtitle}>
-          Current Level: <strong>{currentLevel}</strong> / {totalLevels}
-        </p>
-      </div>
+      <div className={styles.path}>
+        {Array.from({ length: totalLevels }, (_, i) => {
+          const level = i + 1;
+          const unlocked = level <= currentLevel + 1;
+          const completed = level < currentLevel;
+          const isCurrent = level === currentLevel;
 
-      <div className={styles.mapContainer}>
-        <div className={styles.map}>
-          {levels.map((level, i) => {
-            const pos = getLevelPosition(i);
-            const unlocked = level <= currentLevel + 1;
-            const completed = level < currentLevel;
-            const isCurrent = level === currentLevel;
-
-            return (
-              <div
-                key={level}
-                className={styles.levelNode}
-                style={{
-                  gridRow: pos.y + 1,
-                  gridColumn: pos.x + 1,
-                }}
+          return (
+            <div key={level} className={styles.nodeWrapper}>
+              {i > 0 && (
+                <div className={`${styles.connector} ${completed || isCurrent ? styles.connectorActive : ""}`} />
+              )}
+              <button
+                className={`${styles.node}
+                  ${completed ? styles.nodeCompleted : ""}
+                  ${isCurrent ? styles.nodeCurrent : ""}
+                  ${!unlocked ? styles.nodeLocked : ""}`}
+                disabled={!unlocked}
+                onClick={() => unlocked && router.push(`/level/${level}`)}
               >
-                {level > 1 && (
-                  <div className={`${styles.pathLine} ${level <= currentLevel ? styles.pathActive : ""}`} />
+                {completed ? (
+                  <CheckIcon />
+                ) : isCurrent ? (
+                  <span className={styles.nodeNum}>{level}</span>
+                ) : (
+                  <LockIcon />
                 )}
-                <button
-                  className={`${styles.nodeBtn} ${completed ? styles.completed : ""} ${isCurrent ? styles.current : ""} ${!unlocked ? styles.locked : ""}`}
-                  disabled={!unlocked}
-                >
-                  {completed ? (
-                    <span className={styles.nodeIcon}><TrophyIcon /></span>
-                  ) : isCurrent ? (
-                    <span className={styles.nodeLevel}>{level}</span>
-                  ) : (
-                    <span className={styles.nodeIcon}><LockIcon /></span>
-                  )}
-                </button>
-                <span className={`${styles.nodeLabel} ${unlocked ? styles.nodeLabelActive : ""}`}>
-                  Level {level}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className={styles.stats}>
-        <div className={styles.stat}>
-          <span className={styles.statNumber}>{currentLevel - 1}</span>
-          <span className={styles.statLabel}>Completed</span>
-        </div>
-        <div className={styles.stat}>
-          <span className={styles.statNumber}><StarIcon /></span>
-          <span className={styles.statLabel}>Stars</span>
-        </div>
-        <div className={styles.stat}>
-          <span className={styles.statNumber}>{totalLevels - currentLevel + 1}</span>
-          <span className={styles.statLabel}>Remaining</span>
-        </div>
+              </button>
+              {isCurrent && <div className={styles.currentLabel}>START</div>}
+            </div>
+          );
+        })}
       </div>
     </div>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  );
+}
+
+function LockIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  );
+}
+
+function StreakIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--orange)" stroke="none">
+      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+    </svg>
+  );
+}
+
+function GemIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--purple)" stroke="none">
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+    </svg>
+  );
+}
+
+function HeartIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--red)" stroke="none">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+    </svg>
   );
 }

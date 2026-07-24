@@ -9,25 +9,24 @@ export default function Navbar() {
 
   return (
     <nav className={styles.nav}>
-      <div className={`container ${styles.navInner}`}>
+      <div className={`container ${styles.inner}`}>
         <a href="/" className={styles.logo}>
           <span className={styles.logoIcon}><GameIcon /></span>
           <span className={styles.logoText}>CodeQuest</span>
         </a>
 
-        <div className={`${styles.navLinks} ${menuOpen ? styles.navOpen : ""}`}>
-          <a href="#about" className={styles.navLink} onClick={() => setMenuOpen(false)}>About</a>
-          <a href="#features" className={styles.navLink} onClick={() => setMenuOpen(false)}>Features</a>
-          <a href="#how" className={styles.navLink} onClick={() => setMenuOpen(false)}>How It Works</a>
-          <a href="/auth" className={`${styles.navLink} ${styles.navCta}`}>
-            Get Started
+        <div className={`${styles.links} ${menuOpen ? styles.open : ""}`}>
+          <a href="#features" className={styles.link} onClick={() => setMenuOpen(false)}>Features</a>
+          <a href="#how" className={styles.link} onClick={() => setMenuOpen(false)}>How It Works</a>
+          <a href="/auth" className={styles.cta}>
+            Start Learning
           </a>
         </div>
 
         <button className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
-          <span className={`${styles.hamburgerLine} ${menuOpen ? styles.open : ""}`} />
-          <span className={`${styles.hamburgerLine} ${menuOpen ? styles.open : ""}`} />
-          <span className={`${styles.hamburgerLine} ${menuOpen ? styles.open : ""}`} />
+          <span className={`${styles.line} ${menuOpen ? styles.lineOpen : ""}`} />
+          <span className={`${styles.line} ${menuOpen ? styles.lineOpen : ""}`} />
+          <span className={`${styles.line} ${menuOpen ? styles.lineOpen : ""}`} />
         </button>
       </div>
     </nav>

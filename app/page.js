@@ -7,6 +7,7 @@ import {
   SnakeIcon, GlobeIcon, DatabaseIcon, LightningIcon,
   LockIcon, RobotIcon, JoystickIcon, PencilIcon, PuzzleIcon,
   TrophyIcon, LaptopIcon, StarIcon, LightbulbIcon, SparkleIcon,
+  SwordIcon,
 } from "@/components/ui/Icons";
 import styles from "./page.module.css";
 
@@ -14,16 +15,10 @@ export default function Home() {
   return (
     <>
       <SplashScreen />
-      <div className={styles.bgCircle} style={{ width: 500, height: 500, top: "10%", left: "-10%", opacity: 0.6 }} />
-      <div className={styles.bgCircle} style={{ width: 300, height: 300, top: "40%", right: "-5%", opacity: 0.4 }} />
-      <div className={styles.bgCircle} style={{ width: 200, height: 200, bottom: "20%", left: "5%", opacity: 0.5 }} />
-      <div className={styles.bgCircle} style={{ width: 400, height: 400, bottom: "-10%", right: "10%", opacity: 0.3 }} />
-      <div className={styles.bgCircle} style={{ width: 150, height: 150, top: "60%", left: "30%", opacity: 0.35 }} />
-      <div className={styles.bgCircle} style={{ width: 250, height: 250, top: "15%", right: "25%", opacity: 0.25 }} />
       <Navbar />
       <main>
         <HeroSection />
-        <AboutSection />
+        <StatsSection />
         <FeaturesSection />
         <HowItWorksSection />
         <CTASection />
@@ -36,53 +31,46 @@ export default function Home() {
 function HeroSection() {
   return (
     <section className={styles.hero}>
+      <div className={styles.heroBg}>
+        <div className={styles.heroShape} style={{ top: "-20%", left: "-10%", width: 500, height: 500, opacity: 0.12 }} />
+        <div className={styles.heroShape} style={{ bottom: "-30%", right: "-15%", width: 600, height: 600, opacity: 0.08 }} />
+      </div>
       <div className={`container ${styles.heroInner}`}>
         <div className={`${styles.heroContent} animate-fadeInUp`}>
-          <div className={styles.heroBadge}>
-            <GameIcon /> Learn Through Play
+          <div className={styles.badge}>
+            <SparkleIcon /> Learn Through Play
           </div>
-          <h1 className={styles.heroTitle}>
+          <h1 className={styles.title}>
             Level Up Your<br />
-            <span className={styles.heroHighlight}>Coding Skills</span>
+            <span className={styles.highlight}>Coding Skills</span>
           </h1>
-          <p className={styles.heroSub}>
-            CodeQuest turns coding into an adventure! Solve fun quizzes,
+          <p className={styles.sub}>
+            CodeQuest turns coding into an epic adventure. Solve bite-sized quizzes,
             earn XP, unlock levels, and become a coding hero.
           </p>
-          <div className={styles.heroActions}>
+          <div className={styles.actions}>
             <Button href="/auth" variant="green">
               Get Started Free →
             </Button>
-            <Button href="#about" variant="outline">
-              Learn More
+            <Button href="#features" variant="outline">
+              Explore
             </Button>
-          </div>
-          <div className={styles.heroStats}>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>50+</span>
-              <span className={styles.statLabel}>Quizzes</span>
-            </div>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>5</span>
-              <span className={styles.statLabel}>Categories</span>
-            </div>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>∞</span>
-              <span className={styles.statLabel}>Fun Guaranteed</span>
-            </div>
           </div>
         </div>
         <div className={`${styles.heroVisual} animate-float`}>
           <div className={styles.heroArt}>
-            <span className={styles.heroEmoji}><GameIcon /></span>
-            <div className={styles.codeBubble}>
-              <span className={styles.codeLine} style={{ "--i": 1 }}>def hello():</span>
-              <span className={styles.codeLine} style={{ "--i": 2 }}>&nbsp;&nbsp;print("CodeQuest!")</span>
-              <span className={styles.codeLine} style={{ "--i": 3 }}><TrophyIcon /> → XP +100</span>
+            <div className={styles.heroIcon}><GameIcon /></div>
+            <div className={styles.codeCard}>
+              <div className={styles.codeDot} style={{ background: "var(--red)" }} />
+              <div className={styles.codeDot} style={{ background: "var(--orange)" }} />
+              <div className={styles.codeDot} style={{ background: "var(--green)" }} />
+              <div className={styles.codeLine} style={{ "--i": 1 }}><span className={styles.kw}>def</span> <span className={styles.fn}>quest</span>():</div>
+              <div className={styles.codeLine} style={{ "--i": 2 }}>&nbsp;&nbsp;<span className={styles.kw}>return</span> <span className={styles.str}>"CodeQuest!"</span></div>
+              <div className={styles.codeLineResult} style={{ "--i": 3 }}><TrophyIcon /> XP +100</div>
             </div>
-            <div className={styles.floatingBadge} style={{ top: "10%", right: "-10%" }}><SparkleIcon /></div>
-            <div className={styles.floatingBadge} style={{ bottom: "15%", left: "-8%" }}><LightbulbIcon /></div>
-            <div className={styles.floatingBadge} style={{ top: "50%", left: "-12%" }}><StarIcon /></div>
+            <div className={styles.floatIcon} style={{ top: "5%", right: "-5%" }}><StarIcon /></div>
+            <div className={styles.floatIcon} style={{ bottom: "20%", left: "-8%" }}><LightbulbIcon /></div>
+            <div className={styles.floatIcon} style={{ top: "45%", left: "-15%" }}><SwordIcon /></div>
           </div>
         </div>
       </div>
@@ -90,50 +78,37 @@ function HeroSection() {
   );
 }
 
-function AboutSection() {
+function StatsSection() {
   return (
-    <section id="about" className={styles.about}>
-      <RevealOnScroll>
-      <div className={`container ${styles.sectionInner}`}>
-        <div className={styles.sectionHeader}>
-          <span className={styles.sectionEmoji}><BookIcon /></span>
-          <h2 className={styles.sectionTitle}>What is CodeQuest?</h2>
-          <p className={styles.sectionDesc}>
-            CodeQuest is a gamified learning platform that makes coding fun and
-            addictive — just like your favorite mobile games!
-          </p>
+    <div className={styles.statsBar}>
+      <div className={`container ${styles.statsInner}`}>
+        <div className={styles.statItem}>
+          <span className={styles.statNum}>50+</span>
+          <span className={styles.statLbl}>Interactive Quizzes</span>
         </div>
-        <div className={styles.aboutCards}>
-          <div className={`${styles.aboutCard} animate-fadeInUp`} style={{ animationDelay: "0.1s" }}>
-            <div className={styles.aboutCardIcon}><TargetIcon /></div>
-            <h3>Learn by Doing</h3>
-            <p>Bite-sized quizzes that teach you real coding concepts through interactive challenges.</p>
-          </div>
-          <div className={`${styles.aboutCard} animate-fadeInUp`} style={{ animationDelay: "0.2s" }}>
-            <div className={styles.aboutCardIcon}><MedalIcon /></div>
-            <h3>Earn Rewards</h3>
-            <p>Gain XP, level up, and unlock achievements as you progress through your coding journey.</p>
-          </div>
-          <div className={`${styles.aboutCard} animate-fadeInUp`} style={{ animationDelay: "0.3s" }}>
-            <div className={styles.aboutCardIcon}><MapIcon /></div>
-            <h3>Your Adventure</h3>
-            <p>Follow a structured path from beginner to advanced, all at your own pace.</p>
-          </div>
+        <div className={styles.statDivider} />
+        <div className={styles.statItem}>
+          <span className={styles.statNum}>7</span>
+          <span className={styles.statLbl}>Learning Paths</span>
+        </div>
+        <div className={styles.statDivider} />
+        <div className={styles.statItem}>
+          <span className={styles.statNum}>∞</span>
+          <span className={styles.statLbl}>Fun Guaranteed</span>
         </div>
       </div>
-      </RevealOnScroll>
-    </section>
+    </div>
   );
 }
 
 function FeaturesSection() {
   const features = [
-    { icon: SnakeIcon, title: "Python", desc: "Master Python from basics to advanced" },
-    { icon: GlobeIcon, title: "Web Dev", desc: "HTML, CSS, JavaScript & frameworks" },
-    { icon: DatabaseIcon, title: "Databases", desc: "SQL, NoSQL & data modeling" },
-    { icon: LightningIcon, title: "Algorithms", desc: "Problem-solving & data structures" },
-    { icon: LockIcon, title: "Security", desc: "Cyber security fundamentals" },
-    { icon: RobotIcon, title: "AI & ML", desc: "Intro to artificial intelligence" },
+    { icon: SnakeIcon, title: "Python", desc: "Master Python from basics to advanced", color: "var(--green)" },
+    { icon: GlobeIcon, title: "Web Dev", desc: "HTML, CSS, JavaScript & frameworks", color: "var(--blue)" },
+    { icon: DatabaseIcon, title: "Databases", desc: "SQL, NoSQL & data modeling", color: "var(--orange)" },
+    { icon: LightningIcon, title: "Algorithms", desc: "Problem-solving & data structures", color: "var(--purple)" },
+    { icon: LockIcon, title: "Security", desc: "Cyber security fundamentals", color: "var(--red)" },
+    { icon: RobotIcon, title: "AI & ML", desc: "Intro to artificial intelligence", color: "var(--blue)" },
   ];
 
   return (
@@ -141,7 +116,7 @@ function FeaturesSection() {
       <RevealOnScroll>
       <div className={`container ${styles.sectionInner}`}>
         <div className={styles.sectionHeader}>
-          <span className={styles.sectionEmoji}><TrophyIcon /></span>
+          <span className={styles.sectionIcon}><TrophyIcon /></span>
           <h2 className={styles.sectionTitle}>Choose Your Path</h2>
           <p className={styles.sectionDesc}>
             Multiple categories to explore. Start anywhere, learn everything!
@@ -149,12 +124,8 @@ function FeaturesSection() {
         </div>
         <div className={styles.featuresGrid}>
           {features.map((f, i) => (
-            <div
-              key={i}
-              className={`${styles.featureCard} animate-fadeInUp`}
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              <div className={styles.featureIcon}><f.icon /></div>
+            <div key={i} className={styles.featureCard} style={{ animationDelay: `${i * 0.1}s` }}>
+              <div className={styles.featureIcon} style={{ background: f.color }}><f.icon /></div>
               <h3 className={styles.featureTitle}>{f.title}</h3>
               <p className={styles.featureDesc}>{f.desc}</p>
             </div>
@@ -168,10 +139,10 @@ function FeaturesSection() {
 
 function HowItWorksSection() {
   const steps = [
-    { num: "1", icon: PencilIcon, title: "Sign Up", desc: "Create your free account in seconds" },
-    { num: "2", icon: TargetIcon, title: "Pick a Category", desc: "Choose what you want to learn" },
+    { num: "1", icon: PencilIcon, title: "Sign Up Free", desc: "Create your account in seconds" },
+    { num: "2", icon: TargetIcon, title: "Pick a Path", desc: "Choose what you want to learn" },
     { num: "3", icon: PuzzleIcon, title: "Solve Quizzes", desc: "Answer questions and earn XP" },
-    { num: "4", icon: TrophyIcon, title: "Level Up", desc: "Unlock harder levels and track progress" },
+    { num: "4", icon: TrophyIcon, title: "Level Up", desc: "Unlock harder levels and rank up" },
   ];
 
   return (
@@ -179,17 +150,17 @@ function HowItWorksSection() {
       <RevealOnScroll>
       <div className={`container ${styles.sectionInner}`}>
         <div className={styles.sectionHeader}>
-          <span className={styles.sectionEmoji}><JoystickIcon /></span>
+          <span className={styles.sectionIcon}><JoystickIcon /></span>
           <h2 className={styles.sectionTitle}>How It Works</h2>
           <p className={styles.sectionDesc}>
             Four simple steps to start your coding adventure!
           </p>
         </div>
-        <div className={styles.steps}>
+        <div className={styles.stepsRow}>
           {steps.map((s, i) => (
-            <div key={i} className={`${styles.step} animate-fadeInUp`} style={{ animationDelay: `${i * 0.15}s` }}>
-              <div className={styles.stepNumber}>{s.num}</div>
-              <div className={styles.stepEmoji}><s.icon /></div>
+            <div key={i} className={styles.stepCard} style={{ animationDelay: `${i * 0.15}s` }}>
+              <div className={styles.stepNum}>{s.num}</div>
+              <div className={styles.stepIcon}><s.icon /></div>
               <h3 className={styles.stepTitle}>{s.title}</h3>
               <p className={styles.stepDesc}>{s.desc}</p>
             </div>
@@ -206,10 +177,10 @@ function CTASection() {
     <section className={styles.cta}>
       <RevealOnScroll>
       <div className={`container ${styles.ctaInner}`}>
-        <div className={styles.ctaArt}>
-          <span className={styles.ctaEmoji}><GameIcon /></span>
-          <span className={styles.ctaEmoji}><LaptopIcon /></span>
-          <span className={styles.ctaEmoji}><LightningIcon /></span>
+        <div className={styles.ctaIcons}>
+          <span className={styles.ctaIcon}><GameIcon /></span>
+          <span className={styles.ctaIcon}><LaptopIcon /></span>
+          <span className={styles.ctaIcon}><LightningIcon /></span>
         </div>
         <h2 className={styles.ctaTitle}>Ready to Start Your Quest?</h2>
         <p className={styles.ctaDesc}>
@@ -227,8 +198,6 @@ function CTASection() {
 function Footer() {
   return (
     <footer className={styles.footer}>
-      <div className={styles.bgCircle} style={{ width: 300, height: 300, top: "-30%", right: "-5%", opacity: 0.15, background: "white" }} />
-      <div className={styles.bgCircle} style={{ width: 180, height: 180, bottom: "-20%", left: "10%", opacity: 0.12, background: "white" }} />
       <div className={`container ${styles.footerInner}`}>
         <div className={styles.footerTop}>
           <div className={styles.footerBrand}>
@@ -236,13 +205,13 @@ function Footer() {
             <p>Making coding fun, one quiz at a time.</p>
           </div>
           <div className={styles.footerLinks}>
-            <a href="#about" className={styles.footerLink}>About</a>
             <a href="#features" className={styles.footerLink}>Features</a>
             <a href="#how" className={styles.footerLink}>How It Works</a>
+            <a href="/auth" className={styles.footerLink}>Get Started</a>
           </div>
         </div>
-        <div className={styles.footerCopyright}>
-          © 2026 CodeQuest. All rights reserved.
+        <div className={styles.footerBottom}>
+          &copy; 2026 CodeQuest. All rights reserved.
         </div>
       </div>
     </footer>
