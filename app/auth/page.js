@@ -194,7 +194,7 @@ function AuthPageContent() {
           <h1 className={styles.title}>CodeQuest</h1>
         </div>
 
-        {error && <div className={styles.error}>{error}</div>}
+        {error ? <div className={styles.error}>{error}</div> : null}
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.field}>
@@ -253,7 +253,7 @@ function AuthPageContent() {
                 </div>
               </div>
 
-              {verifyError && <div className={styles.error}>{verifyError}</div>}
+              {verifyError ? <div className={styles.error}>{verifyError}</div> : null}
 
               <button className={styles.submit} type="submit" disabled={verifyLoading || verifyCode.length !== 6}>
                 {verifyLoading ? "Verifying..." : "Verify →"}
