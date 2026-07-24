@@ -106,36 +106,30 @@ export default function LevelsPage() {
             const now = level === currentLevel;
 
             return (
-              <g key={level}>
+              <g key={level} className={styles.nodeGroup} transform={`translate(${n.x},${n.y})`} style={{ cursor: unlocked ? "pointer" : "not-allowed" }} onClick={() => unlocked && router.push(`/level/${level}`)}>
                 {/* Clickable hexagon */}
                 <polygon
                   points={hex}
-                  transform={`translate(${n.x},${n.y})`}
                   fill={done ? "#58CC02" : now ? "white" : !unlocked ? "#f0f0f0" : "white"}
                   stroke={done ? "#58CC02" : now ? "#58CC02" : !unlocked ? "#ddd" : "#ddd"}
                   strokeWidth="4"
                   strokeLinejoin="round"
                   className={`${styles.hex} ${now ? styles.hexGlow : ""} ${!unlocked ? styles.hexLock : ""}`}
-                  onClick={() => unlocked && router.push(`/level/${level}`)}
-                  style={{ cursor: unlocked ? "pointer" : "not-allowed" }}
                 />
                 {done && (
-                  <g transform={`translate(${n.x},${n.y})`}>
-                    <polyline points="-8,-3 -3,3 8,-7" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </g>
+                  <polyline points="-8,-3 -3,3 8,-7" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
                 )}
                 {now && (
-                  <text x={n.x} y={n.y + 5} textAnchor="middle" fill="#58CC02" fontFamily="Fredoka, sans-serif" fontSize="15" fontWeight="700">{level}</text>
+                  <text x="0" y="5" textAnchor="middle" fill="#58CC02" fontFamily="Fredoka, sans-serif" fontSize="15" fontWeight="700">{level}</text>
                 )}
                 {!unlocked && !done && (
-                  <g transform={`translate(${n.x},${n.y})`}>
+                  <g>
                     <rect x="-7" y="-4" width="14" height="10" rx="2" fill="none" stroke="#bbb" strokeWidth="2.5" />
                     <path d="M-3-4V-7a3 3 0 0 1 6 0v3" fill="none" stroke="#bbb" strokeWidth="2.5" strokeLinecap="round" />
                   </g>
                 )}
-                {/* "QUEST" label for current level */}
                 {now && (
-                  <text x={n.x} y={n.y + r + 18} textAnchor="middle" fill="#58CC02" fontFamily="Fredoka, sans-serif" fontSize="8" fontWeight="700" letterSpacing="1.5">QUEST</text>
+                  <text x="0" y={r + 18} textAnchor="middle" fill="#58CC02" fontFamily="Fredoka, sans-serif" fontSize="8" fontWeight="700" letterSpacing="1.5">QUEST</text>
                 )}
               </g>
             );
