@@ -3,7 +3,7 @@ import Navbar from "@/components/ui/Navbar";
 import Button from "@/components/ui/Button";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import {
-  GameIcon, BookIcon, TargetIcon, MedalIcon, MapIcon,
+  BookIcon, TargetIcon, MedalIcon, MapIcon,
   SnakeIcon, GlobeIcon, DatabaseIcon, LightningIcon,
   LockIcon, RobotIcon, JoystickIcon, PencilIcon, PuzzleIcon,
   TrophyIcon, LaptopIcon, StarIcon, LightbulbIcon, SparkleIcon,
@@ -59,7 +59,7 @@ function HeroSection() {
         </div>
         <div className={`${styles.heroVisual} animate-float`}>
           <div className={styles.heroArt}>
-            <div className={styles.heroIcon}><GameIcon /></div>
+            <div className={styles.heroIcon}>&lt;/&gt;</div>
             <div className={styles.codeCard}>
               <div className={styles.codeDot} style={{ background: "var(--red)" }} />
               <div className={styles.codeDot} style={{ background: "var(--orange)" }} />
@@ -181,7 +181,7 @@ function CTASection() {
       <RevealOnScroll>
       <div className={`container ${styles.ctaInner}`}>
         <div className={styles.ctaIcons}>
-          <span className={styles.ctaIcon}><GameIcon /></span>
+          <span className={styles.ctaIcon}>&lt;/&gt;</span>
           <span className={styles.ctaIcon}><LaptopIcon /></span>
           <span className={styles.ctaIcon}><LightningIcon /></span>
         </div>
@@ -204,7 +204,7 @@ function Footer() {
       <div className={`container ${styles.footerInner}`}>
         <div className={styles.footerTop}>
           <div className={styles.footerBrand}>
-            <span className={styles.footerLogo}><GameIcon /> CodeQuest</span>
+            <span className={styles.footerLogo}>&lt;/&gt; CodeQuest</span>
             <p>Making coding fun, one quiz at a time.</p>
           </div>
           <div className={styles.footerLinks}>

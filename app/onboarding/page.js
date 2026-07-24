@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase-browser";
-import { SnakeIcon, GlobeIcon, DatabaseIcon, LightningIcon, RobotIcon, LaptopIcon, GameIcon, TargetIcon, RocketIcon, LockIcon } from "@/components/ui/Icons";
+import { SnakeIcon, GlobeIcon, DatabaseIcon, LightningIcon, RobotIcon, LaptopIcon, TargetIcon, RocketIcon, LockIcon } from "@/components/ui/Icons";
 import styles from "./page.module.css";
 
 const languages = [
@@ -35,7 +35,7 @@ const goals = [
 
 const dailyTargets = [5, 10, 15, 20];
 
-const stepIcons = [GameIcon, LaptopIcon, LightningIcon, TargetIcon, RocketIcon];
+const stepIcons = [CodeIcon, LaptopIcon, LightningIcon, TargetIcon, RocketIcon];
 const stepLabels = ["Learn", "Experience", "Goal", "Target", "Ready"];
 
 export default function OnboardingPage() {
@@ -234,5 +234,14 @@ export default function OnboardingPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+function CodeIcon() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="16 18 22 12 16 6" />
+      <polyline points="8 6 2 12 8 18" />
+    </svg>
   );
 }
