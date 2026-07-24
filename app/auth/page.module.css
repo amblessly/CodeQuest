@@ -53,11 +53,9 @@
   justify-content: center;
   background: var(--green-bg);
   border-radius: var(--radius);
-}
-
-.logo svg {
-  width: 28px;
-  height: 28px;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
   color: var(--green);
 }
 

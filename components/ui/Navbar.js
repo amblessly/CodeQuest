@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { GameIcon } from "@/components/ui/Icons";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
@@ -11,7 +10,7 @@ export default function Navbar() {
     <nav className={styles.nav}>
       <div className={`container ${styles.inner}`}>
         <a href="/" className={styles.logo}>
-          <span className={styles.logoIcon}><GameIcon /></span>
+          <span className={styles.logoIcon}>&lt;/&gt;</span>
           <span className={styles.logoText}>CodeQuest</span>
         </a>
 

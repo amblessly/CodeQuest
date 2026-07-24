@@ -103,12 +103,15 @@ function StatsSection() {
 
 function FeaturesSection() {
   const features = [
-    { icon: SnakeIcon, title: "Python", desc: "Master Python from basics to advanced", color: "var(--green)" },
-    { icon: GlobeIcon, title: "Web Dev", desc: "HTML, CSS, JavaScript & frameworks", color: "var(--blue)" },
-    { icon: DatabaseIcon, title: "Databases", desc: "SQL, NoSQL & data modeling", color: "var(--orange)" },
-    { icon: LightningIcon, title: "Algorithms", desc: "Problem-solving & data structures", color: "var(--purple)" },
-    { icon: LockIcon, title: "Security", desc: "Cyber security fundamentals", color: "var(--red)" },
-    { icon: RobotIcon, title: "AI & ML", desc: "Intro to artificial intelligence", color: "var(--blue)" },
+    { icon: GlobeIcon, title: "Frontend Development", desc: "Build beautiful UIs with HTML, CSS, JavaScript, and modern frameworks", color: "var(--blue)" },
+    { icon: DatabaseIcon, title: "Backend Development", desc: "Learn servers, APIs, databases, authentication, and application logic", color: "var(--green)" },
+    { icon: LaptopIcon, title: "Mobile Development", desc: "Create mobile apps for Android, iOS, and cross-platform devices", color: "var(--orange)" },
+    { icon: LightningIcon, title: "Programming Fundamentals", desc: "Variables, loops, functions, OOP, and problem-solving", color: "var(--purple)" },
+    { icon: DatabaseIcon, title: "Databases", desc: "Practice data modeling, SQL, NoSQL, optimization, and database design", color: "var(--blue)" },
+    { icon: SnakeIcon, title: "Algorithms & Data Structures", desc: "Improve logical thinking and solve increasingly challenging problems", color: "var(--green)" },
+    { icon: LockIcon, title: "Cloud & DevOps", desc: "Explore deployment, containers, CI/CD, Linux, and cloud platforms", color: "var(--red)" },
+    { icon: RobotIcon, title: "Cybersecurity", desc: "Learn secure coding, networking, ethical hacking, and digital security", color: "var(--purple)" },
+    { icon: LightbulbIcon, title: "Artificial Intelligence", desc: "Understand AI, ML, prompt engineering, and modern intelligent systems", color: "var(--orange)" },
   ];
 
   return (
@@ -117,14 +120,14 @@ function FeaturesSection() {
       <div className={`container ${styles.sectionInner}`}>
         <div className={styles.sectionHeader}>
           <span className={styles.sectionIcon}><TrophyIcon /></span>
-          <h2 className={styles.sectionTitle}>Choose Your Path</h2>
+          <h2 className={styles.sectionTitle}>Explore Coding Worlds</h2>
           <p className={styles.sectionDesc}>
-            Multiple categories to explore. Start anywhere, learn everything!
+            Discover different areas of software development. Master each world by completing quizzes, earning XP, and unlocking new challenges.
           </p>
         </div>
         <div className={styles.featuresGrid}>
           {features.map((f, i) => (
-            <div key={i} className={styles.featureCard} style={{ animationDelay: `${i * 0.1}s` }}>
+            <div key={i} className={styles.featureCard} style={{ animationDelay: `${i * 0.08}s` }}>
               <div className={styles.featureIcon} style={{ background: f.color }}><f.icon /></div>
               <h3 className={styles.featureTitle}>{f.title}</h3>
               <p className={styles.featureDesc}>{f.desc}</p>

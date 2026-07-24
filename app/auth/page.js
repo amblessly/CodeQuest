@@ -3,7 +3,6 @@
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase-browser";
-import { GameIcon } from "@/components/ui/Icons";
 import styles from "./page.module.css";
 
 export default function AuthPage() {
@@ -122,7 +121,7 @@ function AuthPageContent() {
         <a href="/" className={styles.back}>← Back</a>
         <div className={styles.card}>
           <div className={styles.cardHeader}>
-            <span className={styles.logo}><GameIcon /></span>
+            <span className={styles.logo}>&lt;/&gt;</span>
             <h1 className={styles.title}>CodeQuest</h1>
           </div>
           <div className={styles.verify}>
@@ -170,7 +169,7 @@ function AuthPageContent() {
         <a href="/" className={styles.back}>← Back</a>
         <div className={styles.card}>
           <div className={styles.cardHeader}>
-            <span className={styles.logo}><GameIcon /></span>
+            <span className={styles.logo}>&lt;/&gt;</span>
             <h1 className={styles.title}>CodeQuest</h1>
           </div>
           <div className={styles.verify}>
@@ -198,8 +197,8 @@ function AuthPageContent() {
       <a href="/" className={styles.back}>← Back</a>
       <div className={styles.card}>
         <div className={styles.cardHeader}>
-          <span className={styles.logo}><GameIcon /></span>
-          <h1 className={styles.title}>CodeQuest</h1>
+            <span className={styles.logo}>&lt;/&gt;</span>
+            <h1 className={styles.title}>CodeQuest</h1>
         </div>
 
         <div className={styles.tabs}>
