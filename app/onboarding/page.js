@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase-browser";
-import { SnakeIcon, GlobeIcon, DatabaseIcon, LightningIcon, RobotIcon, LaptopIcon, GameIcon, TargetIcon, RocketIcon } from "@/components/ui/Icons";
+import { SnakeIcon, GlobeIcon, DatabaseIcon, LightningIcon, RobotIcon, LaptopIcon, GameIcon, TargetIcon, RocketIcon, LockIcon } from "@/components/ui/Icons";
 import styles from "./page.module.css";
 
 const languages = [
