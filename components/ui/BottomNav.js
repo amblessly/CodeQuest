@@ -8,7 +8,7 @@ const tabs = [
   { href: "/levels", label: "Home", icon: HomeIcon },
   { href: "#", label: "Leaderboard", icon: LeaderboardIcon },
   { href: "#", label: "Quests", icon: QuestsIcon },
-  { href: "#", label: "Profile", icon: ProfileIcon },
+  { href: "/profile", label: "Profile", icon: ProfileIcon },
 ];
 
 export default function BottomNav() {

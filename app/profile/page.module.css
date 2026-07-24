@@ -1,0 +1,147 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8fff0 0%, #ffffff 60%);
+  padding: 0 20px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0 24px;
+  width: 100%;
+}
+
+.avatarWrap {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #58CC02, #89E219);
+  color: white;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatarRing {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 3px solid #58CC02;
+  opacity: 0.3;
+}
+
+.name {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2b2b2b;
+  margin: 0;
+}
+
+.email {
+  font-size: 0.85rem;
+  color: #999;
+  margin: 4px 0 0;
+}
+
+.section {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 10px 8px;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 4px 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2b2b2b;
+}
+
+.value {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.divider {
+  height: 1px;
+  background: #f0f0f0;
+  margin: 0 16px;
+}
+
+.option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.option:hover {
+  background: #f8f8f8;
+}
+
+.optionText {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2b2b2b;
+}
+
+.chevron {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.danger {
+  color: #FF4B4B;
+}
