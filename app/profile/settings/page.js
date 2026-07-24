@@ -56,6 +56,7 @@ export default function SettingsPage() {
         <span />
       </div>
 
+      <div className={styles.content}>
         <SectionTitle text="App Settings" />
         <div className={styles.card}>
           <ToggleRow label="Sound Effects" checked={soundOn} onChange={setSoundOn} />
@@ -118,6 +119,7 @@ export default function SettingsPage() {
           </svg>
           Log Out
         </button>
+      </div>
     </div>
   );
 }
