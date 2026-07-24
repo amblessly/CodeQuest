@@ -7,6 +7,9 @@ import styles from "./page.module.css";
 
 const totalLevels = 20;
 
+// Heptagon points for a 7-sided polygon (centered, radius ~50)
+const H = "50,2 88,20 99,59 76,93 24,93 1,59 12,20";
+
 export default function LevelsPage() {
   const router = useRouter();
   const [session, setSession] = useState(null);
@@ -56,16 +59,14 @@ export default function LevelsPage() {
           const done = level < currentLevel;
           const now = level === currentLevel;
 
-          const prevDone = i > 0 && i < currentLevel;
-
           return (
             <div key={level} className={`${styles.step} ${isLeft ? styles.left : styles.right}`}>
               {i > 0 && (
                 <svg className={styles.line} viewBox="0 0 100 50" preserveAspectRatio="none">
                   <line
-                    x1={isLeft ? "70" : "30"}
+                    x1={isLeft ? "72" : "28"}
                     y1="0"
-                    x2={isLeft ? "30" : "70"}
+                    x2={isLeft ? "28" : "72"}
                     y2="50"
                     strokeWidth="4"
                     strokeLinecap="round"
@@ -74,14 +75,21 @@ export default function LevelsPage() {
                 </svg>
               )}
               <button
-                className={`${styles.node}
-                  ${done ? styles.done : ""}
-                  ${now ? styles.now : ""}
-                  ${!unlocked ? styles.locked : ""}`}
+                className={`${styles.node} ${done ? styles.done : ""} ${now ? styles.now : ""} ${!unlocked ? styles.locked : ""}`}
                 disabled={!unlocked}
                 onClick={() => unlocked && router.push(`/level/${level}`)}
               >
-                {done ? <CheckIcon /> : now ? <span className={styles.num}>{level}</span> : <LockIcon />}
+                <svg className={styles.hept} viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <polygon
+                    points={H}
+                    fill={done ? "#58CC02" : now ? "white" : !unlocked ? "#f5f5f5" : "white"}
+                    stroke={done ? "#58CC02" : now ? "#58CC02" : !unlocked ? "#ddd" : "#ddd"}
+                    strokeWidth={done ? "6" : now ? "6" : "6"}
+                  />
+                </svg>
+                <span className={styles.content}>
+                  {done ? <CheckIcon /> : now ? level : <LockIcon />}
+                </span>
               </button>
               {now && <span className={styles.flag}>QUEST</span>}
             </div>
@@ -97,7 +105,7 @@ export default function LevelsPage() {
 
 function CheckIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="20 6 9 17 4 12" />
     </svg>
   );
@@ -105,7 +113,7 @@ function CheckIcon() {
 
 function LockIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
       <path d="M7 11V7a5 5 0 0 1 10 0v4" />
     </svg>
