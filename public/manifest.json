@@ -1,0 +1,16 @@
+{
+  "name": "CodeQuest",
+  "short_name": "CodeQuest",
+  "description": "Learn to Code Through Play",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#58CC02",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
