@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase-browser";
 import styles from "./page.module.css";
@@ -16,40 +16,72 @@ export default function AuthPage() {
 function AuthPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [mode, setMode] = useState("signup");
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPw, setShowPw] = useState(false);
-  const [showConfirmPw, setShowConfirmPw] = useState(false);
-  const [verified, setVerified] = useState(false);
-  const [signedUpEmail, setSignedUpEmail] = useState("");
+
+  const [showVerify, setShowVerify] = useState(false);
+  const [verifyEmail, setVerifyEmail] = useState("");
+  const [verifyUserId, setVerifyUserId] = useState("");
+  const [verifyCode, setVerifyCode] = useState("");
+  const [verifyError, setVerifyError] = useState("");
+  const [verifyLoading, setVerifyLoading] = useState(false);
   const [resendCooldown, setResendCooldown] = useState(0);
 
+  const sendCode = useCallback(async (userId, email) => {
+    const res = await fetch("/api/auth/send-code", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, email }),
+    });
+    return res.json();
+  }, []);
+
   useEffect(() => {
-    if (searchParams.get("verified") === "1") {
-      setVerified(true);
+    const verifiedParam = searchParams.get("verified");
+    if (verifiedParam === "1") {
+      router.push("/dashboard");
+      return;
     }
-  }, [searchParams]);
+
+    let cancelled = false;
+
+    async function checkSession() {
+      const supabase = createClient();
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (!session?.user) return;
+
+      const res = await fetch("/api/auth/check-user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: session.user.id }),
+      });
+      const data = await res.json();
+
+      if (cancelled) return;
+
+      if (data.verified) {
+        router.push("/dashboard");
+      } else {
+        setVerifyUserId(session.user.id);
+        setVerifyEmail(session.user.email || "");
+        setShowVerify(true);
+        await sendCode(session.user.id, session.user.email || "");
+      }
+    }
+
+    checkSession();
+
+    return () => { cancelled = true; };
+  }, [router, searchParams, sendCode]);
 
   useEffect(() => {
     if (resendCooldown <= 0) return;
-    const t = setTimeout(() => setResendCooldown(c => c - 1), 1000);
+    const t = setTimeout(() => setResendCooldown((c) => c - 1), 1000);
     return () => clearTimeout(t);
   }, [resendCooldown]);
-
-  async function handleResend() {
-    if (resendCooldown > 0) return;
-    const supabase = createClient();
-    const { error } = await supabase.auth.resend({
-      type: "signup",
-      email: signedUpEmail,
-    });
-    if (!error) {
-      setResendCooldown(60);
-    } else {
-      setError(error.message);
-    }
-  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -59,137 +91,98 @@ function AuthPageContent() {
     const form = new FormData(e.target);
     const email = form.get("email");
     const password = form.get("password");
-    const username = form.get("username");
-    const confirmPassword = form.get("confirmPassword");
-
-    if (mode === "signup" && password !== confirmPassword) {
-      setError("Passwords do not match");
-      setLoading(false);
-      return;
-    }
 
     const supabase = createClient();
 
     try {
-      if (mode === "signup") {
-        const { data, error: signUpError } = await supabase.auth.signUp({
+      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (signInError) {
+        const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            data: { username, display_name: username },
-            emailRedirectTo: `${window.location.origin}/auth/callback`,
+            data: {
+              username: email.split("@")[0],
+              display_name: email.split("@")[0],
+            },
           },
         });
 
         if (signUpError) {
-          setError(signUpError.message || "Something went wrong");
+          setError(
+            signUpError.message === "User already registered"
+              ? "Invalid credentials"
+              : signUpError.message || "Something went wrong"
+          );
           setLoading(false);
           return;
         }
 
-        if (data?.user?.identities?.length === 0) {
-          setError("This email is already registered");
-          setLoading(false);
-          return;
-        }
-
-        setSignedUpEmail(email);
+        const userId = signUpData.user.id;
+        setVerifyUserId(userId);
+        setVerifyEmail(email);
+        await sendCode(userId, email);
+        setShowVerify(true);
         setLoading(false);
-      } else {
-        const { error: signInError } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-
-        if (signInError) {
-          setError(signInError.message || "Invalid credentials");
-          setLoading(false);
-          return;
-        }
-
-        router.push("/dashboard");
+        return;
       }
+
+      const userId = signInData.user.id;
+      const data = await sendCode(userId, email);
+
+      if (data.verified) {
+        router.push("/dashboard");
+      } else {
+        setVerifyUserId(userId);
+        setVerifyEmail(email);
+        setShowVerify(true);
+      }
+
+      setLoading(false);
     } catch (err) {
       setError(err.message || "Something went wrong");
       setLoading(false);
     }
   }
 
-  if (signedUpEmail) {
-    return (
-      <div className={styles.page}>
-        <a href="/" className={styles.back}>← Back</a>
-        <div className={styles.card}>
-          <div className={styles.cardHeader}>
-            <span className={styles.logo}>&lt;/&gt;</span>
-            <h1 className={styles.title}>CodeQuest</h1>
-          </div>
-          <div className={styles.verify}>
-            <div className={styles.verifyIcon}>
-              <MailSentIcon />
-            </div>
-            <h2 className={styles.verifyTitle}>Verify Your Email</h2>
-            <p className={styles.verifyDesc}>
-              We sent a verification link to<br />
-              <strong>{signedUpEmail}</strong>
-            </p>
-            <p className={styles.verifyHint}>
-              Click the link in the email to activate your account, then sign in.
-            </p>
-            <a
-              href="https://mail.google.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.btn}
-            >
-              Open Gmail
-            </a>
-            <button
-              className={styles.resendBtn}
-              onClick={handleResend}
-              disabled={resendCooldown > 0}
-            >
-              {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : "Resend Email"}
-            </button>
-            <button
-              className={styles.switch}
-              onClick={() => { setSignedUpEmail(""); setMode("login"); }}
-            >
-              Back to Sign In
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+  async function handleVerify(e) {
+    e.preventDefault();
+    setVerifyError("");
+    setVerifyLoading(true);
+
+    try {
+      const res = await fetch("/api/auth/verify-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: verifyUserId, code: verifyCode }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        router.push("/dashboard");
+      } else {
+        setVerifyError(data.error || "Invalid code");
+        setVerifyLoading(false);
+      }
+    } catch (err) {
+      setVerifyError("Something went wrong");
+      setVerifyLoading(false);
+    }
   }
 
-  if (verified) {
-    return (
-      <div className={styles.page}>
-        <a href="/" className={styles.back}>← Back</a>
-        <div className={styles.card}>
-          <div className={styles.cardHeader}>
-            <span className={styles.logo}>&lt;/&gt;</span>
-            <h1 className={styles.title}>CodeQuest</h1>
-          </div>
-          <div className={styles.verify}>
-            <div className={styles.verifyIcon}>
-              <CheckCircleIcon />
-            </div>
-            <h2 className={styles.verifyTitle}>Email Verified!</h2>
-            <p className={styles.verifyDesc}>
-              Your account is now active. Sign in and start your quest!
-            </p>
-            <button
-              className={styles.btn}
-              onClick={() => { setVerified(false); setMode("login"); }}
-            >
-              Sign In Now
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+  async function handleResend() {
+    if (resendCooldown > 0) return;
+    setResendCooldown(60);
+    await sendCode(verifyUserId, verifyEmail);
+  }
+
+  function maskEmail(email) {
+    const [name, domain] = email.split("@");
+    return name[0] + "***@" + domain;
   }
 
   return (
@@ -197,38 +190,13 @@ function AuthPageContent() {
       <a href="/" className={styles.back}>← Back</a>
       <div className={styles.card}>
         <div className={styles.cardHeader}>
-            <span className={styles.logo}>&lt;/&gt;</span>
-            <h1 className={styles.title}>CodeQuest</h1>
-        </div>
-
-        <div className={styles.tabs}>
-          <button
-            className={`${styles.tab} ${mode === "signup" ? styles.tabActive : ""}`}
-            onClick={() => { setMode("signup"); setError(""); }}
-          >
-            Sign Up
-          </button>
-          <button
-            className={`${styles.tab} ${mode === "login" ? styles.tabActive : ""}`}
-            onClick={() => { setMode("login"); setError(""); }}
-          >
-            Sign In
-          </button>
+          <span className={styles.logo}>&lt;/&gt;</span>
+          <h1 className={styles.title}>CodeQuest</h1>
         </div>
 
         {error && <div className={styles.error}>{error}</div>}
 
         <form className={styles.form} onSubmit={handleSubmit}>
-          {mode === "signup" && (
-            <div className={styles.field}>
-              <label className={styles.label}>Username</label>
-              <div className={styles.inputWrap}>
-                <UserIcon />
-                <input className={styles.input} name="username" type="text" placeholder="Your hero name" required />
-              </div>
-            </div>
-          )}
-
           <div className={styles.field}>
             <label className={styles.label}>Email</label>
             <div className={styles.inputWrap}>
@@ -248,43 +216,63 @@ function AuthPageContent() {
             </div>
           </div>
 
-          {mode === "signup" && (
-            <div className={styles.field}>
-              <label className={styles.label}>Confirm Password</label>
-              <div className={styles.inputWrap}>
-                <LockCheckIcon />
-                <input className={styles.input} name="confirmPassword" type={showConfirmPw ? "text" : "password"} placeholder="••••••••" required />
-                <button type="button" className={styles.eye} onClick={() => setShowConfirmPw(!showConfirmPw)} tabIndex={-1}>
-                  {showConfirmPw ? <EyeClosedIcon /> : <EyeOpenIcon />}
-                </button>
-              </div>
-            </div>
-          )}
-
           <button className={styles.submit} type="submit" disabled={loading}>
-            {loading ? "Loading..." : mode === "signup" ? "Start Quest →" : "Let's Go →"}
+            {loading ? "Loading..." : "Let's Go →"}
           </button>
         </form>
-
-        <p className={styles.switchText}>
-          {mode === "signup" ? (
-            <>Already have an account? <button className={styles.switch} onClick={() => { setMode("login"); setError(""); }}>Sign In</button></>
-          ) : (
-            <>No account yet? <button className={styles.switch} onClick={() => { setMode("signup"); setError(""); }}>Sign Up</button></>
-          )}
-        </p>
       </div>
+
+      {showVerify && (
+        <div className={styles.overlay}>
+          <div className={styles.modal}>
+            <div className={styles.modalIcon}>
+              <MailSentIcon />
+            </div>
+            <h2 className={styles.modalTitle}>Welcome to CodeQuest!</h2>
+            <p className={styles.modalDesc}>
+              We sent a verification code to<br />
+              <strong>{maskEmail(verifyEmail)}</strong>
+            </p>
+
+            <form className={styles.verifyForm} onSubmit={handleVerify}>
+              <div className={styles.field}>
+                <label className={styles.label}>Verification Code</label>
+                <div className={styles.inputWrap}>
+                  <CodeIcon />
+                  <input
+                    className={styles.input}
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    maxLength={6}
+                    placeholder="000000"
+                    value={verifyCode}
+                    onChange={(e) => setVerifyCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                    required
+                  />
+                </div>
+              </div>
+
+              {verifyError && <div className={styles.error}>{verifyError}</div>}
+
+              <button className={styles.submit} type="submit" disabled={verifyLoading || verifyCode.length !== 6}>
+                {verifyLoading ? "Verifying..." : "Verify →"}
+              </button>
+            </form>
+
+            <button
+              className={styles.resendBtn}
+              onClick={handleResend}
+              disabled={resendCooldown > 0}
+            >
+              {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : "Resend Code"}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
-/* ====== Icons ====== */
-const UserIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
-  </svg>
-);
 
 const MailIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -297,14 +285,6 @@ const LockIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-  </svg>
-);
-
-const LockCheckIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-    <path d="M7 11V7a5 5 0 0 1 9.9-1" />
-    <path d="m9 16 2 2 4-4" />
   </svg>
 );
 
@@ -323,18 +303,18 @@ const EyeClosedIcon = () => (
   </svg>
 );
 
-const CheckCircleIcon = () => (
-  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-    <polyline points="22 4 12 14.01 9 11.01" />
-  </svg>
-);
-
 const MailSentIcon = () => (
   <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect x="2" y="4" width="20" height="16" rx="2" />
     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
     <path d="M16 21l3-3 3 3" />
     <path d="M19 18v6" />
+  </svg>
+);
+
+const CodeIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="16 18 22 12 16 6" />
+    <polyline points="8 6 2 12 8 18" />
   </svg>
 );
