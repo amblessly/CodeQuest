@@ -99,33 +99,70 @@
   white-space: nowrap;
 }
 
-/* === ZIGZAG MAP === */
-.mapWrap {
-  padding: 32px 20px;
-  max-width: 400px;
+/* === ZIGZAG PATH === */
+.path {
+  padding: 24px 20px 40px;
+  max-width: 340px;
   width: 100%;
   margin: 0 auto;
-  flex: 1;
-}
-
-.map {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0;
-  position: relative;
-}
-
-.nodeWrap {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0;
+}
+
+.row {
+  display: flex;
+  align-items: center;
   position: relative;
-  padding: 12px 0;
+  width: 100%;
+}
+
+.rowLeft {
+  justify-content: flex-start;
+  padding-left: 10px;
+}
+
+.rowRight {
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+.lineWrap {
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.rowLeft .lineWrap {
+  top: -30px;
+  left: 0;
+}
+
+.rowRight .lineWrap {
+  top: -30px;
+  right: 0;
+}
+
+.zigzag {
+  width: 100%;
+  height: 60px;
+}
+
+.zigzag polyline {
+  stroke: var(--border);
+  transition: stroke 0.3s;
+}
+
+.zigzagActive polyline {
+  stroke: var(--green);
 }
 
 .node {
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   border: 3px solid var(--border);
   background: white;
@@ -174,56 +211,28 @@
 
 .nodeNum {
   color: var(--green);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
 }
 
-.youAreHere {
+.tag {
+  position: absolute;
   font-family: 'Fredoka', sans-serif;
   font-size: 0.55rem;
   font-weight: 700;
   color: var(--green);
-  margin-top: 4px;
   letter-spacing: 1px;
   white-space: nowrap;
-  z-index: 2;
 }
 
-/* Connectors */
-.connectorV {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 24px;
-  background: var(--border);
-  border-radius: 2px;
-  z-index: 1;
+.rowLeft .tag {
+  left: calc(56px + 16px);
 }
 
-.connectorH {
-  height: 4px;
-  background: var(--border);
-  border-radius: 2px;
-  align-self: center;
-  z-index: 1;
-  margin-top: 26px;
+.rowRight .tag {
+  right: calc(56px + 16px);
 }
 
-.connectorVLong {
-  width: 4px;
-  background: var(--border);
-  border-radius: 2px;
-  justify-self: center;
-  z-index: 1;
-  margin-top: 0;
-}
-
-.connectorActive {
-  background: var(--green);
-}
-
-/* Footer stats */
+/* Footer */
 .footer {
   display: flex;
   gap: 48px;
@@ -234,6 +243,7 @@
   width: 100%;
   max-width: 400px;
   justify-content: center;
+  margin-top: auto;
 }
 
 .footerStat {
@@ -256,16 +266,21 @@
   font-weight: 600;
 }
 
-@media (max-width: 420px) {
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@media (max-width: 380px) {
   .node {
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
     font-size: 0.85rem;
   }
-  .connectorV {
-    height: 16px;
+  .rowLeft .tag {
+    left: calc(46px + 12px);
   }
-  .connectorH {
-    margin-top: 22px;
+  .rowRight .tag {
+    right: calc(46px + 12px);
   }
 }
