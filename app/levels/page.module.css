@@ -9,12 +9,15 @@
 
 .header {
   position: sticky;
-  top: 0;
+  top: 12px;
   z-index: 10;
   background: white;
-  border-bottom: 2px solid #eee;
+  border-radius: 18px;
   padding: 10px 20px 12px;
-  width: 100%;
+  width: calc(100% - 24px);
+  max-width: 396px;
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
 .row {

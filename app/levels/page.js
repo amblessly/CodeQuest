@@ -128,9 +128,7 @@ export default function LevelsPage() {
                     <path d="M-3-4V-7a3 3 0 0 1 6 0v3" fill="none" stroke="#bbb" strokeWidth="2.5" strokeLinecap="round" />
                   </g>
                 )}
-                {now && (
-                  <text x="0" y={r + 18} textAnchor="middle" fill="#58CC02" fontFamily="Fredoka, sans-serif" fontSize="8" fontWeight="700" letterSpacing="1.5">QUEST</text>
-                )}
+
               </g>
             );
           })}
