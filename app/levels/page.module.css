@@ -89,76 +89,35 @@
   white-space: nowrap;
 }
 
-/* === PATH === */
-.path {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  padding: 16px 8px 0;
-  max-width: 360px;
+.map {
   width: 100%;
+  max-width: 400px;
   margin: 0 auto;
+  padding: 0;
 }
 
-.step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
+.svg {
   width: 100%;
-}
-
-.left {
-  align-items: flex-start;
-  padding-left: 8px;
-}
-
-.right {
-  align-items: flex-end;
-  padding-right: 8px;
-}
-
-.group {
-  width: 100%;
-  max-width: 200px;
   height: auto;
   display: block;
-  overflow: visible;
 }
 
-.tunnel {
-  stroke: #ddd;
-  transition: stroke 0.3s;
+.hex {
+  transition: all 0.25s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.10));
 }
 
-.tunnelOn {
-  stroke: #58CC02;
+.hex:hover {
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
+  transform: scale(1.05);
 }
 
-.heptGlow {
-  filter: drop-shadow(0 0 8px rgba(88,204,2,0.35));
+.hexGlow {
+  filter: drop-shadow(0 0 12px rgba(88,204,2,0.5)) drop-shadow(0 0 24px rgba(88,204,2,0.25));
 }
 
-.flag {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 0.5rem;
-  font-weight: 700;
-  color: #58CC02;
-  letter-spacing: 1.5px;
-  white-space: nowrap;
-  margin-top: 2px;
+.hexLock {
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.05));
 }
 
-.crown {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 0 8px;
-  animation: bounce 2s ease-in-out infinite;
-}
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}

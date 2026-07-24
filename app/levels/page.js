@@ -6,16 +6,50 @@ import { createClient } from "@/lib/supabase-browser";
 import styles from "./page.module.css";
 
 const totalLevels = 20;
-const R = 38;
-const cx = 80, cy = 90;
-const H = (() => {
+const cols = 160;
+const cx = cols / 2;
+const spread = 36;
+const yStep = 130;
+const r = 28;
+
+// Generate node positions: alternating left/right
+const nodes = Array.from({ length: totalLevels }, (_, i) => ({
+  x: i % 2 === 0 ? cx - spread : cx + spread,
+  y: 60 + i * yStep,
+}));
+
+// Build ONE continuous smooth path through all nodes
+function buildPath(pts) {
+  if (pts.length < 2) return "";
+  let d = `M ${pts[0].x},${pts[0].y}`;
+  for (let i = 1; i < pts.length; i++) {
+    const prev = pts[i - 1];
+    const curr = pts[i];
+    const dy = curr.y - prev.y;
+    const dx = curr.x - prev.x;
+    // Control points: push out horizontally from each end
+    const c1x = prev.x + dx * 0.4 + (i % 2 === 0 ? -dx * 0.3 : dx * 0.3);
+    const c1y = prev.y + dy * 0.4;
+    const c2x = curr.x - dx * 0.4 + (i % 2 === 0 ? dx * 0.3 : -dx * 0.3);
+    const c2y = curr.y - dy * 0.4;
+    d += ` C ${c1x},${c1y} ${c2x},${c2y} ${curr.x},${curr.y}`;
+  }
+  return d;
+}
+
+const pathD = buildPath(nodes);
+const svgH = nodes[nodes.length - 1].y + 100;
+
+// Hexagon points centered at 0,0 with radius r
+function hexPts(r) {
   let pts = [];
-  for (let i = 0; i < 7; i++) {
-    const a = (Math.PI * 2 * i) / 7 - Math.PI / 2;
-    pts.push(`${cx + R * Math.cos(a)},${cy + R * Math.sin(a)}`);
+  for (let i = 0; i < 6; i++) {
+    const a = (Math.PI * 2 * i) / 6 - Math.PI / 6;
+    pts.push(`${(r * Math.cos(a)).toFixed(1)},${(r * Math.sin(a)).toFixed(1)}`);
   }
   return pts.join(" ");
-})();
+}
+const hex = hexPts(r);
 
 export default function LevelsPage() {
   const router = useRouter();
@@ -58,77 +92,63 @@ export default function LevelsPage() {
         </div>
       </header>
 
-      <div className={styles.path}>
-        {Array.from({ length: totalLevels }, (_, i) => {
-          const level = i + 1;
-          const isLeft = i % 2 === 0;
-          const unlocked = level <= currentLevel + 1;
-          const done = level < currentLevel;
-          const now = level === currentLevel;
-          const active = i <= currentLevel;
+      <div className={styles.map}>
+        {/* Background path shadow */}
+        <svg className={styles.svg} viewBox={`0 0 ${cols} ${svgH}`} preserveAspectRatio="xMidYMax meet">
+          <path d={pathD} fill="none" stroke="#e8e8e8" strokeWidth="32" strokeLinecap="round" strokeLinejoin="round" />
+          {/* Active path segment */}
+          <path d={buildPath(nodes.slice(0, currentLevel))} fill="none" stroke="#58CC02" strokeWidth="32" strokeLinecap="round" strokeLinejoin="round" />
 
-          const prevHept = getHeptEdge(isLeft ? "bottom-right" : "bottom-left");
-          const currHept = getHeptEdge(isLeft ? "top-left" : "top-right");
+          {nodes.map((n, i) => {
+            const level = i + 1;
+            const unlocked = level <= currentLevel + 1;
+            const done = level < currentLevel;
+            const now = level === currentLevel;
 
-          return (
-            <div key={level} className={`${styles.step} ${isLeft ? styles.left : styles.right}`}>
-              <svg className={styles.group} viewBox="0 0 160 145" preserveAspectRatio="xMidYMax meet">
-                {i > 0 && (
-                  <line
-                    x1={prevHept.x}
-                    y1="0"
-                    x2={currHept.x}
-                    y2={currHept.y}
-                    strokeWidth="5"
-                    strokeLinecap="round"
-                    className={`${styles.tunnel} ${active ? styles.tunnelOn : ""}`}
-                  />
-                )}
+            return (
+              <g key={level}>
+                {/* Clickable hexagon */}
                 <polygon
-                  points={H}
-                  fill={done ? "#58CC02" : now ? "white" : !unlocked ? "#f5f5f5" : "white"}
+                  points={hex}
+                  transform={`translate(${n.x},${n.y})`}
+                  fill={done ? "#58CC02" : now ? "white" : !unlocked ? "#f0f0f0" : "white"}
                   stroke={done ? "#58CC02" : now ? "#58CC02" : !unlocked ? "#ddd" : "#ddd"}
-                  strokeWidth="6"
+                  strokeWidth="4"
                   strokeLinejoin="round"
-                  className={now ? styles.heptGlow : ""}
+                  className={`${styles.hex} ${now ? styles.hexGlow : ""} ${!unlocked ? styles.hexLock : ""}`}
+                  onClick={() => unlocked && router.push(`/level/${level}`)}
+                  style={{ cursor: unlocked ? "pointer" : "not-allowed" }}
                 />
                 {done && (
-                  <g transform={`translate(${cx},${cy})`}>
-                    <polyline points="-12,-4 -4,4 12,-10" fill="none" stroke="white" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+                  <g transform={`translate(${n.x},${n.y})`}>
+                    <polyline points="-8,-3 -3,3 8,-7" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
                   </g>
                 )}
                 {now && (
-                  <text x={cx} y={cy + 6} textAnchor="middle" fill="#58CC02" fontFamily="Fredoka, sans-serif" fontSize={R > 35 ? 24 : 20} fontWeight="700">{level}</text>
+                  <text x={n.x} y={n.y + 5} textAnchor="middle" fill="#58CC02" fontFamily="Fredoka, sans-serif" fontSize="15" fontWeight="700">{level}</text>
                 )}
                 {!unlocked && !done && (
-                  <g transform={`translate(${cx},${cy})`}>
-                    <rect x="-8" y="-5" width="16" height="11" rx="2" fill="none" stroke="#bbb" strokeWidth="2.5" />
-                    <path d="M-4-5V-8a4 4 0 0 1 8 0v3" fill="none" stroke="#bbb" strokeWidth="2.5" strokeLinecap="round" />
+                  <g transform={`translate(${n.x},${n.y})`}>
+                    <rect x="-7" y="-4" width="14" height="10" rx="2" fill="none" stroke="#bbb" strokeWidth="2.5" />
+                    <path d="M-3-4V-7a3 3 0 0 1 6 0v3" fill="none" stroke="#bbb" strokeWidth="2.5" strokeLinecap="round" />
                   </g>
                 )}
-              </svg>
-              {now && <span className={styles.flag}>QUEST</span>}
-            </div>
-          );
-        })}
-        <div className={styles.crown}>
-          <CrownIcon />
-        </div>
+                {/* "QUEST" label for current level */}
+                {now && (
+                  <text x={n.x} y={n.y + r + 18} textAnchor="middle" fill="#58CC02" fontFamily="Fredoka, sans-serif" fontSize="8" fontWeight="700" letterSpacing="1.5">QUEST</text>
+                )}
+              </g>
+            );
+          })}
+
+          {/* Crown at bottom */}
+          <g transform={`translate(${cx},${nodes[nodes.length - 1].y + r + 40})`}>
+            <path d="M2 14l3-10 4 5 3-6 3 6 4-5 3 10H2z" fill="var(--yellow)" stroke="none" />
+          </g>
+        </svg>
       </div>
     </div>
   );
-}
-
-function getHeptEdge(pos) {
-  const edges = {
-    "top": { x: cx, y: cy - R },
-    "bottom": { x: cx, y: cy + R },
-    "top-right": { x: cx + R * Math.cos(-Math.PI / 2 + (Math.PI * 2) / 7), y: cy + R * Math.sin(-Math.PI / 2 + (Math.PI * 2) / 7) },
-    "top-left": { x: cx + R * Math.cos(-Math.PI / 2 - (Math.PI * 2) / 7), y: cy + R * Math.sin(-Math.PI / 2 - (Math.PI * 2) / 7) },
-    "bottom-right": { x: cx + R * Math.cos(Math.PI / 2 - (Math.PI * 2) / 7 * 2), y: cy + R * Math.sin(Math.PI / 2 - (Math.PI * 2) / 7 * 2) },
-    "bottom-left": { x: cx + R * Math.cos(Math.PI / 2 + (Math.PI * 2) / 7 * 2), y: cy + R * Math.sin(Math.PI / 2 + (Math.PI * 2) / 7 * 2) },
-  };
-  return edges[pos] || edges.top;
 }
 
 function StreakIcon() {
@@ -151,14 +171,6 @@ function HeartIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--red)" stroke="none">
       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-    </svg>
-  );
-}
-
-function CrownIcon() {
-  return (
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="var(--yellow)" stroke="none">
-      <path d="M2 19l3-14 4 7 3-9 3 9 4-7 3 14H2z" />
     </svg>
   );
 }
