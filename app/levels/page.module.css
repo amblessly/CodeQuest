@@ -1,5 +1,5 @@
 .page {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: linear-gradient(180deg, #f8fff0 0%, #ffffff 50%);
   padding: 0 0 40px;
   display: flex;
@@ -120,6 +120,12 @@
 
 .hexLock {
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.05));
+}
+
+@media (min-width: 768px) {
+  .map {
+    max-width: 320px;
+  }
 }
 
 
