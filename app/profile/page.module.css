@@ -1,7 +1,6 @@
 .page {
   height: 100vh;
   overflow: hidden;
-  touch-action: manipulation;
   background: linear-gradient(180deg, #f8fff0 0%, #ffffff 60%);
   padding: 0 20px;
   display: flex;

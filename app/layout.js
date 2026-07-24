@@ -6,6 +6,13 @@ export const metadata = {
   description: "CodeQuest turns coding into an adventure! Solve fun quizzes, earn XP, unlock levels, and become a coding hero.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
